@@ -1,5 +1,4 @@
-import 'package:bmusic_front/database.dart';
-import 'package:bmusic_front/models/movie_model.dart';
+import '../models/movie_model.dart';
 import 'package:flutter/material.dart';
 
 class MoviesWidget extends StatelessWidget {

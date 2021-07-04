@@ -1,4 +1,4 @@
-import 'package:bmusic_front/models/actor_model.dart';
+import '../models/actor_model.dart';
 import 'package:flutter/material.dart';
 
 class FeaturedActorsWidget extends StatelessWidget {

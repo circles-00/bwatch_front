@@ -1,8 +1,8 @@
-import 'package:bmusic_front/constants.dart';
-import 'package:bmusic_front/database.dart';
-import 'package:bmusic_front/widgets/featured_actors_widget.dart';
-import 'package:bmusic_front/widgets/main_screen_body_widget.dart';
-import 'package:bmusic_front/widgets/movies_widget.dart';
+import '../constants.dart';
+import '../database.dart';
+import '../widgets/featured_actors_widget.dart';
+import '../widgets/main_screen_body_widget.dart';
+import '../widgets/movies_widget.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {

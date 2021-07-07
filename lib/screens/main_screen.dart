@@ -54,7 +54,7 @@ class _MainScreenState extends State<MainScreen> {
                   Padding(
                       padding: EdgeInsets.only(left: 20, top: 10, bottom: 20),
                       child: Text(
-                        '${mostPopular.length} movies',
+                        'todo pop movies length',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.grey,
@@ -62,21 +62,21 @@ class _MainScreenState extends State<MainScreen> {
                       )),
                   Container(
                     height: 300,
-                    child: MoviesWidget(mostPopular, refresh),
+                    child: MoviesWidget('popular', refresh),
                   ),
                   FeaturedActorsWidget(
                     actors: featuredActors,
                     title: 'featured actors',
                     notifyParent: refresh,
                   ),
-                  MSBodyText('latest'),
+                  MSBodyText('upcoming'),
                   MSBodyText('movies'),
                   Padding(
                     padding: EdgeInsets.only(left: 20, top: 10, bottom: 20),
                   ),
                   Container(
                     height: 300,
-                    child: MoviesWidget(latestReleases, refresh),
+                    child: MoviesWidget('upcoming', refresh),
                   ),
                   FeaturedActorsWidget(
                     actors: featuredActresses,

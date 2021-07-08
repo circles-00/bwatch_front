@@ -1,5 +1,4 @@
 import '../constants.dart';
-import '../database.dart';
 import '../widgets/featured_actors_widget.dart';
 import '../widgets/main_screen_body_widget.dart';
 import '../widgets/movies_widget.dart';
@@ -54,7 +53,7 @@ class _MainScreenState extends State<MainScreen> {
                   Padding(
                       padding: EdgeInsets.only(left: 20, top: 10, bottom: 20),
                       child: Text(
-                        'todo pop movies length',
+                        'Browse the most popular movies and save your favorites to a list',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.grey,
@@ -64,25 +63,24 @@ class _MainScreenState extends State<MainScreen> {
                     height: 300,
                     child: MoviesWidget('popular', refresh),
                   ),
-                  FeaturedActorsWidget(
-                    actors: featuredActors,
-                    title: 'featured actors',
-                    notifyParent: refresh,
-                  ),
+                  FeaturedActorsWidget(notifyParent: refresh),
                   MSBodyText('upcoming'),
                   MSBodyText('movies'),
                   Padding(
                     padding: EdgeInsets.only(left: 20, top: 10, bottom: 20),
+                    child: Text(
+                      'Browse the upcoming movies and save your favorites to a list',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                      ),
+                    ),
                   ),
                   Container(
                     height: 300,
                     child: MoviesWidget('upcoming', refresh),
                   ),
-                  FeaturedActorsWidget(
-                    actors: featuredActresses,
-                    title: 'featured actresses',
-                    notifyParent: refresh,
-                  ),
+                  FeaturedActorsWidget(notifyParent: refresh),
                 ],
               ),
             ),

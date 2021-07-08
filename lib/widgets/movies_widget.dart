@@ -13,11 +13,7 @@ class MoviesWidget extends StatelessWidget {
         future: getMovies(this.listType),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.data == null) {
-            return Container(
-              child: Center(
-                child: Text('loading...'),
-              ),
-            );
+            return CircularProgressIndicator();
           }
 
           return ListView.builder(

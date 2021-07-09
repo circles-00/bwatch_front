@@ -1,6 +1,5 @@
+import 'package:bwatch_front/screens/login_screen.dart';
 import 'package:flutter/material.dart';
-
-import 'screens/main_screen.dart';
 
 void main() {
   runApp(BMusic());
@@ -12,7 +11,7 @@ class BMusic extends StatelessWidget {
     return MaterialApp(
       title: "BWatch",
       debugShowCheckedModeBanner: false,
-      home: MainScreen(),
+      home: LoginScreen(),
     );
   }
 }

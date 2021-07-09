@@ -28,17 +28,22 @@ class _MainScreenState extends State<MainScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Hello, Nikola',
+                  'Hello, User(todo)',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Text('Macedonia', style: TextStyle(fontSize: 10)),
+                // Text('Macedonia', style: TextStyle(fontSize: 10)),
               ],
             ),
             Padding(
                 padding: EdgeInsets.only(right: 8, left: 15),
-                child: Icon(
-                  Icons.notifications_active_outlined,
-                  size: 30,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Icon(
+                    Icons.logout,
+                    size: 30,
+                  ),
                 ))
           ],
         ),
@@ -63,7 +68,6 @@ class _MainScreenState extends State<MainScreen> {
                     height: 300,
                     child: MoviesWidget('popular', refresh),
                   ),
-                  FeaturedActorsWidget(notifyParent: refresh),
                   MSBodyText('upcoming'),
                   MSBodyText('movies'),
                   Padding(

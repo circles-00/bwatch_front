@@ -1,4 +1,5 @@
 import 'package:bwatch_front/database.dart';
+import 'package:bwatch_front/screens/single_actor.dart';
 
 import 'package:flutter/material.dart';
 
@@ -38,25 +39,36 @@ class FeaturedActorsWidget extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10),
-                        child: Column(
-                          children: [
-                            CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                  'https://image.tmdb.org/t/p/w500' +
-                                      snapshot.data[index].image),
-                              radius: 40,
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              snapshot.data[index].name,
-                              style: TextStyle(color: Colors.white),
-                            )
-                          ],
-                        ));
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SingleActor(
+                                    id: snapshot.data[index].id,
+                                    name: snapshot.data[index].name,
+                                    image: snapshot.data[index].image)));
+                      },
+                      child: Container(
+                          margin: EdgeInsets.symmetric(horizontal: 10),
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                    'https://image.tmdb.org/t/p/w500' +
+                                        snapshot.data[index].image),
+                                radius: 40,
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                snapshot.data[index].name,
+                                style: TextStyle(color: Colors.white),
+                              )
+                            ],
+                          )),
+                    );
                   },
                 );
               },

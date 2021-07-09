@@ -1,7 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.bmusic_front">
+    package="com.example.bwatch">
+<uses-permission android:name="android.permission.INTERNET" />
+
+    
    <application
-        android:label="bmusic_front"
+        android:label="BWatch"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

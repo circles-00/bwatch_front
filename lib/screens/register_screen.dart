@@ -253,7 +253,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                 content: Text(
-                                    "User with such email already exists")));
+                                    "User with such email already exists, please enter a different email address")));
                           }
                         });
                       }

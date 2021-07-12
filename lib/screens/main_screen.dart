@@ -1,3 +1,6 @@
+import 'package:bwatch_front/screens/login_screen.dart';
+import 'package:bwatch_front/services/auth_service.dart';
+
 import '../constants.dart';
 import '../widgets/featured_actors_widget.dart';
 import '../widgets/main_screen_body_widget.dart';
@@ -37,8 +40,13 @@ class _MainScreenState extends State<MainScreen> {
             Padding(
                 padding: EdgeInsets.only(right: 8, left: 15),
                 child: GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
+                  onTap: () async {
+                    APIService auth = APIService();
+                    await auth.logout();
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/', (_) => false);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoginScreen()));
                   },
                   child: Icon(
                     Icons.logout,

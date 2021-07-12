@@ -132,24 +132,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: 20.0,
                 ),
-                // Center(
-                //   child: ConstrainedBox(
-                //     constraints: BoxConstraints.tightFor(
-                //       width: 150,
-                //     ),
-                //     child: ElevatedButton(
-                //       onPressed: null,
-                //       child: Center(
-                //         child: Text(
-                //           "Forgot Password?",
-                //           style: TextStyle(
-                //             color: Colors.pink[200],
-                //           ),
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ),
                 SizedBox(
                   height: 20.0,
                 ),
@@ -170,6 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           });
 
                           APIService apiService = new APIService();
+
                           apiService.login(requestModel).then((value) {
                             setState(() {
                               isApiCallProcess = false;
@@ -182,7 +165,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                       builder: (context) => MainScreen()));
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text("Login failed")));
+                                  SnackBar(
+                                      content:
+                                          Text("Incorrect email or password")));
                             }
                           });
                         }

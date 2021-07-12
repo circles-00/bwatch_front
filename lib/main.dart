@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:bwatch_front/screens/login_screen.dart';
 import 'package:bwatch_front/screens/main_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'services/auth_service.dart';
 
@@ -12,17 +11,17 @@ void main() {
 }
 
 class BWatch extends StatelessWidget {
-  Future<String> getJWT() async {
-    var prefs = await SharedPreferences.getInstance();
-    var userData =
-        json.decode(prefs.getString('userData')!) as Map<String, dynamic>;
+  // Future<Map<String, dynamic>?> getJWT() async {
+  //   var prefs = await SharedPreferences.getInstance();
+  //   var userData =
+  //       json.decode(prefs.getString('userData')!) as Map<String, dynamic>;
 
-    var jwt = userData['token'];
-    if (jwt == "init") {
-      return "";
-    }
-    return jwt;
-  }
+  //   var jwt = userData['token'];
+  //   if (jwt == "init") {
+  //     return null;
+  //   }
+  //   return userData;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +29,11 @@ class BWatch extends StatelessWidget {
         title: "BWatch",
         debugShowCheckedModeBanner: false,
         home: FutureBuilder(
-          future: getJWT(),
+          future: APIService.getJWT(),
           builder: (context, snapshot) {
-            if (snapshot.data != "") {
-              var str = snapshot.data.toString();
-              var jwt = str.split(".");
+            if (snapshot.data != null) {
+              final userData = snapshot.data as Map<String, dynamic>;
+              var jwt = userData['token'].split(".");
 
               if (jwt.length != 3) {
                 return LoginScreen();
@@ -43,7 +42,9 @@ class BWatch extends StatelessWidget {
                     ascii.decode(base64.decode(base64.normalize(jwt[1]))));
                 if (DateTime.fromMillisecondsSinceEpoch(payload["exp"] * 1000)
                     .isAfter(DateTime.now())) {
-                  return MainScreen();
+                  return MainScreen(
+                      firstName: userData['firstName'],
+                      token: userData['token']);
                 } else {
                   return LoginScreen();
                 }

@@ -66,6 +66,20 @@ class APIService {
     _lastName = 'init';
   }
 
+  static Future<Map<String, dynamic>?> getJWT() async {
+    var prefs = await SharedPreferences.getInstance();
+    if (prefs.containsKey('userData')) {
+      var userData =
+          json.decode(prefs.getString('userData')!) as Map<String, dynamic>;
+      var jwt = userData['token'];
+      if (jwt == "init") {
+        return null;
+      }
+      return userData;
+    }
+    return null;
+  }
+
   // Future<bool> autoLogin() async {
   //   final prefs = await SharedPreferences.getInstance();
 

@@ -162,7 +162,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => MainScreen()));
+                                      builder: (context) => MainScreen(
+                                            firstName: value.firstName,
+                                            token: value.token,
+                                          )));
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(

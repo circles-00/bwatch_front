@@ -1,5 +1,5 @@
 import 'package:bwatch_front/constants.dart';
-import 'package:bwatch_front/widgets/movies_widget.dart';
+import 'package:bwatch_front/widgets/recommended_movies.dart';
 import 'package:flutter/material.dart';
 
 class SingleMovie extends StatelessWidget {
@@ -91,7 +91,7 @@ class SingleMovie extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(left: 5),
               height: 300,
-              child: MoviesWidget('recommended', this.id, () {}),
+              child: RecommendedMovies(this.id, () {}),
             ),
           ],
         ));

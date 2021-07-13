@@ -58,10 +58,12 @@ Future<List<Movie>> searchMovie(query) async {
 }
 
 Future<List<Movie>> getRecommended(id) async {
-  var response = await http.get(
-      Uri.parse('https://bwatch.herokuapp.com/api/v1/movies/recommended' + id));
+  // print(id);
+  var response = await http.get(Uri.parse(
+      'https://bwatch.herokuapp.com/api/v1/movies/recommended/' +
+          id.toString()));
 
-  var jsonData = json.decode(response.body)['data'];
+  var jsonData = json.decode(response.body)['data']['results'];
   // print(jsonData);
   List<Movie> movies = [];
 
@@ -71,7 +73,7 @@ Future<List<Movie>> getRecommended(id) async {
         title: m['title'],
         overview: m['overview'],
         image: m['poster_path'] == null ? "" : m['poster_path'],
-        rating: m['vote_average'].toString());
+        rating: m['vote_average'].toStringAsFixed(1));
     movies.add(movie);
   }
 

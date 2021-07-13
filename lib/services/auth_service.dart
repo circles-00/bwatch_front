@@ -22,24 +22,32 @@ class APIService {
 
     var jsonData = json.decode(response.body);
 
-    _token = jsonData['token'];
-    Map<String, dynamic> tokenData = JwtDecoder.decode(_token);
+    if (jsonData['status'] == 'success') {
+      _token = jsonData['token'];
+      Map<String, dynamic> tokenData = JwtDecoder.decode(_token);
 
-    _firstName = jsonData['firstName'];
-    _lastName = jsonData['lastName'];
-    _tokenExp = tokenData['exp'];
-    final prefs = await SharedPreferences.getInstance();
-    final userData = json.encode({
-      'token': _token,
-      'tokenExp': _tokenExp,
-      'firstName': _firstName,
-      'lastName': _lastName
-    });
-
-    prefs.setString('userData', userData);
-    return LoginResponseModel.fromJson(
-      jsonData,
-    );
+      _firstName = jsonData['firstName'];
+      _lastName = jsonData['lastName'];
+      _tokenExp = tokenData['exp'];
+      final prefs = await SharedPreferences.getInstance();
+      final userData = json.encode({
+        'token': _token,
+        'tokenExp': _tokenExp,
+        'firstName': _firstName,
+        'lastName': _lastName
+      });
+      prefs.setString('userData', userData);
+      return LoginResponseModel.fromJson(
+        jsonData,
+      );
+    } else {
+      return LoginResponseModel.fromJson({
+        'token': 'fail',
+        'status': 'failed',
+        'firstName': 'fail',
+        'lastName': 'fail'
+      });
+    }
   }
 
   Future<RegisterResponseModel> register(

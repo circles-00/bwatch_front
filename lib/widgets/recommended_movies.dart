@@ -4,16 +4,16 @@ import 'package:bwatch_front/screens/single_movie.dart';
 import '../database.dart';
 import 'package:flutter/material.dart';
 
-class MoviesWidget extends StatelessWidget {
-  final String listType;
+class RecommendedMovies extends StatelessWidget {
+  final int id;
   final Function() notifyParent;
 
-  MoviesWidget(this.listType, this.notifyParent);
+  RecommendedMovies(this.id, this.notifyParent);
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: getMovies(this.listType),
+        future: getRecommended(id),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.data == null) {
             return Center(child: CircularProgressIndicator());

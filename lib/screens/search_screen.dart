@@ -1,27 +1,30 @@
 import 'package:bwatch_front/constants.dart';
+import 'package:bwatch_front/database.dart';
 import 'package:bwatch_front/screens/single_movie.dart';
-
-import '../database.dart';
 import 'package:flutter/material.dart';
 
-class MoviesWidget extends StatelessWidget {
-  final String listType;
-  final Function() notifyParent;
-
-  MoviesWidget(this.listType, this.notifyParent);
-
+class SearchScreen extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
+  _SearchScreenState createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  final _searchInputController = TextEditingController();
+
+  FutureBuilder searchResults() {
     return FutureBuilder(
-        future: getMovies(this.listType),
+        future: searchMovie(_searchInputController.text.toString().trim()),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.data == null) {
-            return Center(child: CircularProgressIndicator());
+            return Center(
+                child: Text(
+              'Start typing...',
+              style: TextStyle(color: Colors.white),
+            ));
           }
-
           return ListView.builder(
             itemCount: snapshot.data.length,
-            scrollDirection: Axis.horizontal,
+            scrollDirection: Axis.vertical,
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () {
@@ -35,20 +38,20 @@ class MoviesWidget extends StatelessWidget {
                               image: snapshot.data[index].image)));
                 },
                 child: Container(
-                  margin: EdgeInsets.only(right: 20),
+                  margin: EdgeInsets.only(bottom: 10),
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       color: Color(kAccentColor),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Container(
                           margin: EdgeInsets.all(10),
-                          width: 150,
-                          height: 225,
+                          width: 64,
+                          height: 64,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             image: DecorationImage(
@@ -95,5 +98,44 @@ class MoviesWidget extends StatelessWidget {
             },
           );
         });
+  }
+
+  @override
+  void dispose() {
+    _searchInputController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    _searchInputController.addListener(searchResults);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Color(kPrimaryColor),
+        appBar: AppBar(
+          backgroundColor: Color(kPrimaryColor),
+          title: TextField(
+            decoration: InputDecoration(
+                enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Color(kAccentColor))),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                hintText: 'Search movie...',
+                hintStyle: TextStyle(color: Colors.white)),
+            style: TextStyle(color: Colors.white),
+            controller: _searchInputController,
+            autofocus: true,
+            expands: false,
+            onChanged: (text) {
+              setState(() {});
+            },
+          ),
+        ),
+        body: searchResults());
   }
 }

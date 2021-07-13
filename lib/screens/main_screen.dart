@@ -1,4 +1,5 @@
 import 'package:bwatch_front/screens/login_screen.dart';
+import 'package:bwatch_front/screens/search_screen.dart';
 import 'package:bwatch_front/services/auth_service.dart';
 
 import '../constants.dart';
@@ -27,7 +28,12 @@ class _MainScreenState extends State<MainScreen> {
             brightness: Brightness.dark,
             backgroundColor: Color(kPrimaryColor),
             elevation: 0,
-            leading: Icon(Icons.search),
+            leading: GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SearchScreen()));
+                },
+                child: Icon(Icons.search)),
             actions: [
               Column(
                 mainAxisSize: MainAxisSize.min,
@@ -88,6 +94,7 @@ class _MainScreenState extends State<MainScreen> {
                           )),
                     ),
                     Container(
+                      margin: EdgeInsets.only(left: 20),
                       height: 300,
                       child: MoviesWidget('popular', refresh),
                     ),
@@ -110,6 +117,7 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                     ),
                     Container(
+                      margin: EdgeInsets.only(left: 20),
                       height: 300,
                       child: MoviesWidget('upcoming', refresh),
                     ),

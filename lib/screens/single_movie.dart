@@ -89,6 +89,7 @@ class SingleMovie extends StatelessWidget {
               height: 20,
             ),
             Container(
+              margin: EdgeInsets.only(left: 5),
               height: 300,
               child: MoviesWidget('upcoming', () {}),
             ),

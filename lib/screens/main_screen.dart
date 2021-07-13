@@ -96,7 +96,7 @@ class _MainScreenState extends State<MainScreen> {
                     Container(
                       margin: EdgeInsets.only(left: 20),
                       height: 300,
-                      child: MoviesWidget('popular', refresh),
+                      child: MoviesWidget('popular', -1, refresh),
                     ),
                     SizedBox(
                       height: 25,
@@ -119,7 +119,7 @@ class _MainScreenState extends State<MainScreen> {
                     Container(
                       margin: EdgeInsets.only(left: 20),
                       height: 300,
-                      child: MoviesWidget('upcoming', refresh),
+                      child: MoviesWidget('upcoming', -1, refresh),
                     ),
                     FeaturedActorsWidget(notifyParent: refresh),
                   ],

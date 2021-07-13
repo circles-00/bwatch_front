@@ -91,7 +91,7 @@ class SingleMovie extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(left: 5),
               height: 300,
-              child: MoviesWidget('upcoming', () {}),
+              child: MoviesWidget('recommended', this.id, () {}),
             ),
           ],
         ));

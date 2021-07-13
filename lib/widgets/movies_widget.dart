@@ -6,14 +6,17 @@ import 'package:flutter/material.dart';
 
 class MoviesWidget extends StatelessWidget {
   final String listType;
+  final int parentId;
   final Function() notifyParent;
 
-  MoviesWidget(this.listType, this.notifyParent);
+  MoviesWidget(this.listType, this.parentId, this.notifyParent);
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: getMovies(this.listType),
+        future: this.listType != 'recommended'
+            ? getMovies(this.listType)
+            : getRecommended(this.parentId),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.data == null) {
             return Center(child: CircularProgressIndicator());

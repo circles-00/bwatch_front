@@ -1,4 +1,5 @@
 import 'package:bwatch_front/constants.dart';
+import 'package:bwatch_front/widgets/movies_widget.dart';
 import 'package:flutter/material.dart';
 
 class SingleMovie extends StatelessWidget {
@@ -45,38 +46,53 @@ class SingleMovie extends StatelessWidget {
           ],
         ),
         body: ListView(
-            shrinkWrap: true,
-            padding: EdgeInsets.all(15.0),
-            children: <Widget>[
-              Container(
-                height: 20,
+          shrinkWrap: true,
+          padding: EdgeInsets.all(15.0),
+          children: <Widget>[
+            Container(
+              height: 20,
+            ),
+            Image(
+              image:
+                  NetworkImage('https://image.tmdb.org/t/p/w500' + this.image),
+            ),
+            Container(
+              height: 30,
+            ),
+            Text(
+              "Movie description:\n",
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
               ),
-              Image(
-                image: NetworkImage(
-                    'https://image.tmdb.org/t/p/w500' + this.image),
-              ),
-              Container(
-                height: 30,
-              ),
-              Center(
-                child: Text(
-                  "Movie description:\n",
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+            ),
+            Center(
+              child: Text(
+                this.overview,
+                style: TextStyle(
+                  fontSize: 17,
+                  wordSpacing: 3,
+                  color: Colors.white,
                 ),
               ),
-              Center(
-                child: Text(
-                  this.overview,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ]));
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            Container(
+              margin: EdgeInsets.only(left: 5),
+              child: Text('Related Movies',
+                  style: TextStyle(fontSize: 25, color: Colors.white)),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              height: 300,
+              child: MoviesWidget('upcoming', () {}),
+            ),
+          ],
+        ));
   }
 }

@@ -40,7 +40,7 @@ class MoviesWidget extends StatelessWidget {
                       color: Color(0xFF3b3d57),
                     ),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -59,9 +59,12 @@ class MoviesWidget extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            Icon(
-                              Icons.star,
-                              color: Colors.yellow,
+                            Container(
+                              margin: EdgeInsets.only(left: 10),
+                              child: Icon(
+                                Icons.star,
+                                color: Colors.yellow,
+                              ),
                             ),
                             Text(
                               snapshot.data[index].rating,
@@ -73,6 +76,7 @@ class MoviesWidget extends StatelessWidget {
                           height: 5,
                         ),
                         Container(
+                          margin: EdgeInsets.only(left: 10),
                           constraints: BoxConstraints(maxWidth: 150),
                           child: Text(
                             snapshot.data[index].title,

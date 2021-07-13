@@ -74,28 +74,38 @@ class _MainScreenState extends State<MainScreen> {
                   children: [
                     MSBodyText('most'),
                     MSBodyText('popular movies'),
-                    Padding(
-                        padding: EdgeInsets.only(left: 20, top: 10, bottom: 20),
-                        child: Text(
-                          'Browse the most popular movies and save your favorites to a list',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey,
-                          ),
-                        )),
+                    Container(
+                      constraints: BoxConstraints(maxWidth: 350),
+                      child: Padding(
+                          padding:
+                              EdgeInsets.only(left: 20, top: 10, bottom: 20),
+                          child: Text(
+                            'Browse the most popular movies and save your favorites to a list',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey,
+                            ),
+                          )),
+                    ),
                     Container(
                       height: 300,
                       child: MoviesWidget('popular', refresh),
                     ),
+                    SizedBox(
+                      height: 25,
+                    ),
                     MSBodyText('upcoming'),
                     MSBodyText('movies'),
-                    Padding(
-                      padding: EdgeInsets.only(left: 20, top: 10, bottom: 20),
-                      child: Text(
-                        'Browse the upcoming movies and save your favorites to a list',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey,
+                    Container(
+                      constraints: BoxConstraints(maxWidth: 350),
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 20, top: 10, bottom: 20),
+                        child: Text(
+                          'Browse the upcoming movies and save your favorites to a list',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey,
+                          ),
                         ),
                       ),
                     ),

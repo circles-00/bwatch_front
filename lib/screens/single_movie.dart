@@ -19,23 +19,27 @@ class SingleMovie extends StatelessWidget {
         backgroundColor: Color(kPrimaryColor),
         appBar: AppBar(
           title: Text(this.title),
-          leading: Builder(builder: (BuildContext context) {
-            return IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(Icons.arrow_back));
-          }),
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(Icons.arrow_back)),
           backgroundColor: Color(kPrimaryColor),
           actions: <Widget>[
-            Column(
+            Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                    padding: EdgeInsets.only(right: 8, left: 15),
-                    child: Icon(Icons.favorite))
+                    padding: EdgeInsets.only(top: 20, right: 10, left: 15),
+                    child: Icon(
+                      Icons.bookmark_add_outlined,
+                    )),
+                Padding(
+                    padding: EdgeInsets.only(top: 20, right: 15),
+                    child:
+                        Icon(Icons.favorite_border_outlined, color: Colors.red))
               ],
             ),
           ],

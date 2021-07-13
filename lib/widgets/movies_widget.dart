@@ -34,32 +34,57 @@ class MoviesWidget extends StatelessWidget {
                               image: snapshot.data[index].image)));
                 },
                 child: Container(
-                  margin: EdgeInsets.all(10),
-                  width: 200,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      image: DecorationImage(
-                          image: NetworkImage(
-                              'https://image.tmdb.org/t/p/w500' +
-                                  snapshot.data[index].image),
-                          fit: BoxFit.cover)),
-                  // child: Padding(
-                  //   padding: EdgeInsets.all(8),
-                  //   child: Column(
-                  //     mainAxisAlignment: MainAxisAlignment.end,
-                  //     crossAxisAlignment: CrossAxisAlignment.start,
-                  //     children: [
-                  //       Text(
-                  //         snapshot.data[index].title,
-                  //         style: TextStyle(
-                  //           color: Colors.white,
-                  //           fontSize: 20,
-                  //           fontWeight: FontWeight.bold,
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
+                  margin: EdgeInsets.only(right: 15, left: 5),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Color(0xFF3b3d57),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.all(10),
+                          width: 150,
+                          height: 225,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    'https://image.tmdb.org/t/p/w500' +
+                                        snapshot.data[index].image),
+                                fit: BoxFit.cover),
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.star,
+                              color: Colors.yellow,
+                            ),
+                            Text(
+                              snapshot.data[index].rating,
+                              style: TextStyle(color: Colors.white),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Container(
+                          constraints: BoxConstraints(maxWidth: 150),
+                          child: Text(
+                            snapshot.data[index].title,
+                            style: TextStyle(color: Colors.white),
+                            overflow: TextOverflow.fade,
+                            softWrap: false,
+                            maxLines: 1,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               );
             },

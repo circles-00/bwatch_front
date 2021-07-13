@@ -19,7 +19,8 @@ Future<List<Movie>> getMovies(String collectionType) async {
         id: m['id'],
         title: m['title'],
         overview: m['overview'],
-        image: m['poster_path']);
+        image: m['poster_path'],
+        rating: m['vote_average'].toString());
 
     movies.add(movie);
   }

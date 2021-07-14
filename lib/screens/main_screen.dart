@@ -39,7 +39,10 @@ class _MainScreenState extends State<MainScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => SearchScreen()));
+                            builder: (context) =>
+                                ChangeNotifierProvider<FavoritesProvider>.value(
+                                    value: FavoritesProvider(widget.token),
+                                    child: SearchScreen())));
                   },
                   child: Icon(Icons.search)),
               actions: [

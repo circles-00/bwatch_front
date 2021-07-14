@@ -1,7 +1,9 @@
 import 'package:bwatch_front/constants.dart';
 import 'package:bwatch_front/database.dart';
+import 'package:bwatch_front/providers/favorites_provider.dart';
 import 'package:bwatch_front/screens/single_movie.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -12,6 +14,7 @@ class _SearchScreenState extends State<SearchScreen> {
   final _searchInputController = TextEditingController();
 
   FutureBuilder searchResults() {
+    final favoritesData = Provider.of<FavoritesProvider>(context);
     return FutureBuilder(
         future: searchMovie(_searchInputController.text.toString().trim()),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -31,11 +34,15 @@ class _SearchScreenState extends State<SearchScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => SingleMovie(
-                              id: snapshot.data[index].id,
-                              title: snapshot.data[index].title,
-                              overview: snapshot.data[index].overview,
-                              image: snapshot.data[index].image)));
+                          builder: (context) =>
+                              ChangeNotifierProvider<FavoritesProvider>.value(
+                                value: FavoritesProvider(favoritesData.token),
+                                child: SingleMovie(
+                                    id: snapshot.data[index].id,
+                                    title: snapshot.data[index].title,
+                                    overview: snapshot.data[index].overview,
+                                    image: snapshot.data[index].image),
+                              )));
                 },
                 child: Container(
                   margin: EdgeInsets.only(bottom: 10),

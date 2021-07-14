@@ -1,6 +1,6 @@
 import 'package:bwatch_front/constants.dart';
 import 'package:bwatch_front/providers/favorites_provider.dart';
-import 'package:bwatch_front/screens/single_movie.dart';
+import 'package:bwatch_front/routes/single_movie_route.dart';
 import 'package:provider/provider.dart';
 
 import '../database.dart';
@@ -28,18 +28,7 @@ class MoviesWidget extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              ChangeNotifierProvider<FavoritesProvider>.value(
-                                value: FavoritesProvider(favoritesData.token),
-                                child: SingleMovie(
-                                    id: snapshot.data[index].id,
-                                    title: snapshot.data[index].title,
-                                    overview: snapshot.data[index].overview,
-                                    image: snapshot.data[index].image),
-                              )));
+                  SingleMovieRoute(context, snapshot, favoritesData, index);
                 },
                 child: Container(
                   margin: EdgeInsets.only(right: 20),

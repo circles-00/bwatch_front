@@ -31,7 +31,7 @@ class FeaturedActorsWidget extends StatelessWidget {
               future: getActors(),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.data == null) {
-                  return CircularProgressIndicator();
+                  return Center(child: CircularProgressIndicator());
                 }
 
                 return ListView.builder(

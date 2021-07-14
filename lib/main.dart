@@ -11,18 +11,6 @@ void main() {
 }
 
 class BWatch extends StatelessWidget {
-  // Future<Map<String, dynamic>?> getJWT() async {
-  //   var prefs = await SharedPreferences.getInstance();
-  //   var userData =
-  //       json.decode(prefs.getString('userData')!) as Map<String, dynamic>;
-
-  //   var jwt = userData['token'];
-  //   if (jwt == "init") {
-  //     return null;
-  //   }
-  //   return userData;
-  // }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

@@ -1,8 +1,10 @@
 import 'package:bwatch_front/constants.dart';
+import 'package:bwatch_front/providers/favorites_provider.dart';
 import 'package:bwatch_front/widgets/recommended_movies.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class SingleMovie extends StatelessWidget {
+class SingleMovie extends StatefulWidget {
   final int id;
   final String title;
   final String overview;
@@ -15,11 +17,25 @@ class SingleMovie extends StatelessWidget {
       required this.image});
 
   @override
+  _SingleMovieState createState() => _SingleMovieState();
+}
+
+class _SingleMovieState extends State<SingleMovie> {
+  List<int> _ids = [];
+  @override
   Widget build(BuildContext context) {
+    final favoritesData = Provider.of<FavoritesProvider>(context);
+    favoritesData.ids.then((value) {
+      if (mounted) {
+        setState(() {
+          _ids = value;
+        });
+      }
+    });
     return Scaffold(
         backgroundColor: Color(kPrimaryColor),
         appBar: AppBar(
-          title: Text(this.title),
+          title: Text(this.widget.title),
           leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
@@ -39,8 +55,14 @@ class SingleMovie extends StatelessWidget {
                     )),
                 Padding(
                     padding: EdgeInsets.only(top: 20, right: 15),
-                    child:
-                        Icon(Icons.favorite_border_outlined, color: Colors.red))
+                    child: GestureDetector(
+                        onTap: () {
+                          favoritesData.addFavorite(widget.id);
+                        },
+                        child: _ids.contains(widget.id)
+                            ? Icon(Icons.favorite, color: Colors.red)
+                            : Icon(Icons.favorite_border_outlined,
+                                color: Colors.red)))
               ],
             ),
           ],
@@ -53,8 +75,8 @@ class SingleMovie extends StatelessWidget {
               height: 20,
             ),
             Image(
-              image:
-                  NetworkImage('https://image.tmdb.org/t/p/w500' + this.image),
+              image: NetworkImage(
+                  'https://image.tmdb.org/t/p/w500' + this.widget.image),
             ),
             Container(
               height: 30,
@@ -69,7 +91,7 @@ class SingleMovie extends StatelessWidget {
             ),
             Center(
               child: Text(
-                this.overview,
+                this.widget.overview,
                 style: TextStyle(
                   fontSize: 17,
                   wordSpacing: 3,
@@ -91,7 +113,7 @@ class SingleMovie extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(left: 5),
               height: 300,
-              child: RecommendedMovies(this.id, () {}),
+              child: RecommendedMovies(this.widget.id, () {}),
             ),
           ],
         ));

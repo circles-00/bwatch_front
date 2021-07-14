@@ -82,6 +82,39 @@ Future<List<Movie>> getRecommended(id) async {
   return movies;
 }
 
+// Get favorite movies of user
+Future<List<int>> getFavoriteMovies(String token) async {
+  // print(token);
+  var response = await http.get(
+      Uri.parse('https://bwatch.herokuapp.com/api/v1/users/favorites/'),
+      headers: {"authorization": "Bearer $token"});
+
+  var jsonData = json.decode(response.body)['data'];
+  // print(jsonData);
+  List<int> movies = [];
+
+  for (var m in jsonData) {
+    movies.add(m);
+  }
+
+  // print(movies.length);
+
+  return movies;
+}
+
+Future<void> addFavoriteMovie(String token, int id) async {
+  // print(token);
+  var response = await http.get(
+      Uri.parse('https://bwatch.herokuapp.com/api/v1/users/favorites/add/' +
+          id.toString()),
+      headers: {"authorization": "Bearer $token"});
+
+  var jsonData = json.decode(response.body);
+  print(jsonData);
+
+  // print(movies.length);
+}
+
 Future<List<Actor>> getActors() async {
   var response = await http
       .get(Uri.parse('https://bwatch.herokuapp.com/api/v1/actors/popular'));

@@ -1,5 +1,7 @@
 import 'package:bwatch_front/constants.dart';
+import 'package:bwatch_front/providers/favorites_provider.dart';
 import 'package:bwatch_front/screens/single_movie.dart';
+import 'package:provider/provider.dart';
 
 import '../database.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,7 @@ class RecommendedMovies extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final favoritesData = Provider.of<FavoritesProvider>(context);
     return FutureBuilder(
         future: getRecommended(id),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -28,11 +31,15 @@ class RecommendedMovies extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => SingleMovie(
-                              id: snapshot.data[index].id,
-                              title: snapshot.data[index].title,
-                              overview: snapshot.data[index].overview,
-                              image: snapshot.data[index].image)));
+                          builder: (context) =>
+                              ChangeNotifierProvider<FavoritesProvider>.value(
+                                value: FavoritesProvider(favoritesData.token),
+                                child: SingleMovie(
+                                    id: snapshot.data[index].id,
+                                    title: snapshot.data[index].title,
+                                    overview: snapshot.data[index].overview,
+                                    image: snapshot.data[index].image),
+                              )));
                 },
                 child: Container(
                   margin: EdgeInsets.only(right: 20),

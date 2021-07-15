@@ -31,7 +31,7 @@ class _SearchScreenState extends State<SearchScreen> {
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () {
-                  SingleMovieRoute(context, snapshot, favoritesData, index);
+                  singleMovieRoute(context, snapshot, favoritesData, index);
                 },
                 child: Container(
                   margin: EdgeInsets.only(bottom: 10),

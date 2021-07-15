@@ -57,7 +57,9 @@ class _SingleMovieState extends State<SingleMovie> {
                     padding: EdgeInsets.only(top: 20, right: 15),
                     child: GestureDetector(
                         onTap: () {
-                          favoritesData.addFavorite(widget.id);
+                          _ids.contains(widget.id)
+                              ? favoritesData.removeFavorite(widget.id)
+                              : favoritesData.addFavorite(widget.id);
                         },
                         child: _ids.contains(widget.id)
                             ? Icon(Icons.favorite, color: Colors.red)

@@ -3,7 +3,7 @@ import 'package:bwatch_front/screens/single_movie.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-Future<dynamic> SingleMovieRoute(context, snapshot, favoritesData, index) {
+Future<dynamic> singleMovieRoute(context, snapshot, favoritesData, index) {
   return Navigator.push(
       context,
       MaterialPageRoute(

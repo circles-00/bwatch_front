@@ -28,7 +28,7 @@ class MoviesWidget extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () {
-                  SingleMovieRoute(context, snapshot, favoritesData, index);
+                  singleMovieRoute(context, snapshot, favoritesData, index);
                 },
                 child: Container(
                   margin: EdgeInsets.only(right: 20),

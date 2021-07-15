@@ -19,4 +19,8 @@ class FavoritesProvider with ChangeNotifier {
   Future<void> addFavorite(int id) async {
     await addFavoriteMovie(token, id);
   }
+
+  Future<void> removeFavorite(int id) async {
+    await removeFavoriteMovie(token, id);
+  }
 }

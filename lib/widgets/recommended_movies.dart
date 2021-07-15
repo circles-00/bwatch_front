@@ -14,7 +14,7 @@ class RecommendedMovies extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final favoritesData = Provider.of<MoviesProvider>(context);
+    final moviesData = Provider.of<MoviesProvider>(context);
     return FutureBuilder(
         future: getRecommended(id),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -28,7 +28,7 @@ class RecommendedMovies extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () {
-                  singleMovieRoute(context, snapshot, favoritesData, index);
+                  singleMovieRoute(context, snapshot, moviesData, index);
                 },
                 child: Container(
                   margin: EdgeInsets.only(right: 20),

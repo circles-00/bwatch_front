@@ -32,7 +32,7 @@ class _SingleMovieState extends State<SingleMovie> {
   Widget build(BuildContext context) {
     final moviesData = Provider.of<MoviesProvider>(context);
     moviesData.favoriteIDs.then((value) {
-      if (mounted && !_favIsCalled) {
+      if (mounted && _favIsCalled == false) {
         setState(() {
           _favIDs = value;
           if (_favIDs.contains(widget.id)) {
@@ -42,7 +42,7 @@ class _SingleMovieState extends State<SingleMovie> {
       }
     });
     moviesData.watchListIDs.then((value) {
-      if (mounted && !_watchListIsCalled) {
+      if (mounted && _watchListIsCalled == false) {
         setState(() {
           _watchListIDs = value;
           if (_watchListIDs.contains(widget.id)) {

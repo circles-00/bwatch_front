@@ -27,7 +27,7 @@ class MoviesProvider with ChangeNotifier {
 
   Future<List<int>> get watchListIDs async {
     // print(token);
-    await getFavoriteMovies(token).then((value) {
+    await getWatchList(token).then((value) {
       _watchListIDs = value;
     });
     // print(_ids);

@@ -8,7 +8,7 @@ Future<dynamic> singleMovieRoute(context, snapshot, moviesData, index) {
       context,
       MaterialPageRoute(
           builder: (context) => ChangeNotifierProvider<MoviesProvider>.value(
-                value: MoviesProvider(moviesData.token),
+                value: MoviesProvider(token: moviesData.token),
                 child: SingleMovie(
                     id: snapshot.data[index].id,
                     title: snapshot.data[index].title,

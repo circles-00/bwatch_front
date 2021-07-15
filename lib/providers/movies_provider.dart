@@ -2,11 +2,22 @@ import 'package:bwatch_front/database.dart';
 import 'package:flutter/cupertino.dart';
 
 class MoviesProvider with ChangeNotifier {
-  final String token;
+  static final MoviesProvider _instance = MoviesProvider._internal();
+
+  static MoviesProvider get instance => _instance;
+
+  MoviesProvider._internal();
+
+  factory MoviesProvider({String token = 'init'}) {
+    _instance.token = token;
+    return _instance;
+  }
+
+  late String token;
   List<int> _favoriteIDs = [];
   List<int> _watchListIDs = [];
 
-  MoviesProvider(this.token);
+  // MoviesProvider(this.token);
 
   Future<List<int>> get favoriteIDs async {
     // print(token);

@@ -25,7 +25,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (ctx) => MoviesProvider(widget.token),
+      create: (ctx) => MoviesProvider(token: widget.token),
       child: WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
@@ -41,7 +41,7 @@ class _MainScreenState extends State<MainScreen> {
                         MaterialPageRoute(
                             builder: (context) =>
                                 ChangeNotifierProvider<MoviesProvider>.value(
-                                    value: MoviesProvider(widget.token),
+                                    value: MoviesProvider(token: widget.token),
                                     child: SearchScreen())));
                   },
                   child: Icon(Icons.search)),

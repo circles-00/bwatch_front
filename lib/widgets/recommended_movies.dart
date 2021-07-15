@@ -1,20 +1,17 @@
 import 'package:bwatch_front/constants.dart';
+import 'package:bwatch_front/database.dart';
 import 'package:bwatch_front/providers/movies_provider.dart';
 import 'package:bwatch_front/routes/single_movie_route.dart';
-import 'package:provider/provider.dart';
-
-import '../database.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class RecommendedMovies extends StatelessWidget {
   final int id;
-  final Function() notifyParent;
 
-  RecommendedMovies(this.id, this.notifyParent);
-
+  RecommendedMovies(this.id);
   @override
   Widget build(BuildContext context) {
-    final moviesData = Provider.of<MoviesProvider>(context);
+    // final moviesData = Provider.of<MoviesProvider>(context);
     return FutureBuilder(
         future: getRecommended(id),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -28,7 +25,8 @@ class RecommendedMovies extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () {
-                  singleMovieRoute(context, snapshot, moviesData, index);
+                  singleMovieRoute(context, snapshot,
+                      Provider.of<MoviesProvider>(context), index);
                 },
                 child: Container(
                   margin: EdgeInsets.only(right: 20),

@@ -73,7 +73,7 @@ Future<List<Movie>> getRecommended(id) async {
         title: m['title'],
         overview: m['overview'],
         image: m['poster_path'],
-        rating: m['vote_average'].toString());
+        rating: m['vote_average'].toStringAsFixed(1));
     movies.add(movie);
   }
 

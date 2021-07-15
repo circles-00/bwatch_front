@@ -1,4 +1,4 @@
-import 'package:bwatch_front/providers/favorites_provider.dart';
+import 'package:bwatch_front/providers/movies_provider.dart';
 import 'package:bwatch_front/screens/login_screen.dart';
 import 'package:bwatch_front/screens/search_screen.dart';
 import 'package:bwatch_front/services/auth_service.dart';
@@ -25,7 +25,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (ctx) => FavoritesProvider(widget.token),
+      create: (ctx) => MoviesProvider(widget.token),
       child: WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
@@ -40,8 +40,8 @@ class _MainScreenState extends State<MainScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                ChangeNotifierProvider<FavoritesProvider>.value(
-                                    value: FavoritesProvider(widget.token),
+                                ChangeNotifierProvider<MoviesProvider>.value(
+                                    value: MoviesProvider(widget.token),
                                     child: SearchScreen())));
                   },
                   child: Icon(Icons.search)),

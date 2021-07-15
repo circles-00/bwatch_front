@@ -1,14 +1,14 @@
-import 'package:bwatch_front/providers/favorites_provider.dart';
+import 'package:bwatch_front/providers/movies_provider.dart';
 import 'package:bwatch_front/screens/single_movie.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-Future<dynamic> singleMovieRoute(context, snapshot, favoritesData, index) {
+Future<dynamic> singleMovieRoute(context, snapshot, moviesData, index) {
   return Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => ChangeNotifierProvider<FavoritesProvider>.value(
-                value: FavoritesProvider(favoritesData.token),
+          builder: (context) => ChangeNotifierProvider<MoviesProvider>.value(
+                value: MoviesProvider(moviesData.token),
                 child: SingleMovie(
                     id: snapshot.data[index].id,
                     title: snapshot.data[index].title,

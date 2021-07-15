@@ -103,29 +103,50 @@ Future<List<int>> getFavoriteMovies(String token) async {
 }
 
 Future<void> addFavoriteMovie(String token, int id) async {
-  // print(token);
   await http.get(
       Uri.parse('https://bwatch.herokuapp.com/api/v1/users/favorites/add/' +
           id.toString()),
       headers: {"authorization": "Bearer $token"});
-
-  // var jsonData = json.decode(response.body);
-  // print(jsonData);
-
-  // print(movies.length);
 }
 
 Future<void> removeFavoriteMovie(String token, int id) async {
-  // print(token);
   await http.get(
       Uri.parse('https://bwatch.herokuapp.com/api/v1/users/favorites/remove/' +
           id.toString()),
       headers: {"authorization": "Bearer $token"});
+}
 
-  // var jsonData = json.decode(response.body);
+// WATCH-LIST
+
+Future<List<int>> getWatchList(String token) async {
+  // print(token);
+  var response = await http.get(
+      Uri.parse('https://bwatch.herokuapp.com/api/v1/users/watch-list/'),
+      headers: {"authorization": "Bearer $token"});
+
+  var jsonData = json.decode(response.body)['data'];
   // print(jsonData);
+  List<int> movies = [];
 
-  // print(movies.length);
+  for (var m in jsonData) {
+    movies.add(m);
+  }
+
+  return movies;
+}
+
+Future<void> addToWatchList(String token, int id) async {
+  await http.get(
+      Uri.parse('https://bwatch.herokuapp.com/api/v1/users/watch-list/add/' +
+          id.toString()),
+      headers: {"authorization": "Bearer $token"});
+}
+
+Future<void> removeFromWatchList(String token, int id) async {
+  await http.get(
+      Uri.parse('https://bwatch.herokuapp.com/api/v1/users/watch-list/remove/' +
+          id.toString()),
+      headers: {"authorization": "Bearer $token"});
 }
 
 Future<List<Actor>> getActors() async {

@@ -1,5 +1,5 @@
 import 'package:bwatch_front/constants.dart';
-import 'package:bwatch_front/providers/favorites_provider.dart';
+import 'package:bwatch_front/providers/movies_provider.dart';
 import 'package:bwatch_front/widgets/recommended_movies.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,18 +21,32 @@ class SingleMovie extends StatefulWidget {
 }
 
 class _SingleMovieState extends State<SingleMovie> {
-  List<int> _ids = [];
+  List<int> _favIDs = [];
+  List<int> _watchListIDs = [];
   bool _isFavorite = false;
-  bool _isCalled = false;
+  bool _isInWatchList = false;
+  bool _favIsCalled = false;
+  bool _watchListIsCalled = false;
+
   @override
   Widget build(BuildContext context) {
-    final favoritesData = Provider.of<FavoritesProvider>(context);
-    favoritesData.ids.then((value) {
-      if (mounted && _isCalled == false) {
+    final moviesData = Provider.of<MoviesProvider>(context);
+    moviesData.favoriteIDs.then((value) {
+      if (mounted && !_favIsCalled) {
         setState(() {
-          _ids = value;
-          if (_ids.contains(widget.id)) {
+          _favIDs = value;
+          if (_favIDs.contains(widget.id)) {
             _isFavorite = true;
+          }
+        });
+      }
+    });
+    moviesData.watchListIDs.then((value) {
+      if (mounted && !_watchListIsCalled) {
+        setState(() {
+          _watchListIDs = value;
+          if (_watchListIDs.contains(widget.id)) {
+            _isInWatchList = true;
           }
         });
       }
@@ -55,24 +69,43 @@ class _SingleMovieState extends State<SingleMovie> {
               children: [
                 Padding(
                     padding: EdgeInsets.only(top: 20, right: 10, left: 15),
-                    child: Icon(
-                      Icons.bookmark_add_outlined,
+                    child: GestureDetector(
+                      onTap: () {
+                        if (_isInWatchList) {
+                          moviesData.removeMovieFromWatchList(widget.id);
+                          setState(() {
+                            _isInWatchList = false;
+                            _watchListIsCalled = true;
+                          });
+                        } else {
+                          moviesData.addMovieToWatchList(widget.id);
+                          setState(() {
+                            _isInWatchList = true;
+                            _watchListIsCalled = true;
+                          });
+                        }
+                      },
+                      child: Icon(
+                        _isInWatchList
+                            ? Icons.bookmark_add
+                            : Icons.bookmark_add_outlined,
+                      ),
                     )),
                 Padding(
                     padding: EdgeInsets.only(top: 20, right: 15),
                     child: GestureDetector(
                         onTap: () {
                           if (_isFavorite) {
-                            favoritesData.removeFavorite(widget.id);
+                            moviesData.removeFavorite(widget.id);
                             setState(() {
                               _isFavorite = false;
-                              _isCalled = true;
+                              _favIsCalled = true;
                             });
                           } else {
-                            favoritesData.addFavorite(widget.id);
+                            moviesData.addFavorite(widget.id);
                             setState(() {
                               _isFavorite = true;
-                              _isCalled = true;
+                              _favIsCalled = true;
                             });
                           }
                         },

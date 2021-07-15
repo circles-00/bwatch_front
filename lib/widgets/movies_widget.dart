@@ -1,5 +1,5 @@
 import 'package:bwatch_front/constants.dart';
-import 'package:bwatch_front/providers/favorites_provider.dart';
+import 'package:bwatch_front/providers/movies_provider.dart';
 import 'package:bwatch_front/routes/single_movie_route.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +14,7 @@ class MoviesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final favoritesData = Provider.of<FavoritesProvider>(context);
+    final moviesData = Provider.of<MoviesProvider>(context);
     return FutureBuilder(
         future: getMovies(this.listType),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -28,7 +28,7 @@ class MoviesWidget extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () {
-                  singleMovieRoute(context, snapshot, favoritesData, index);
+                  singleMovieRoute(context, snapshot, moviesData, index);
                 },
                 child: Container(
                   margin: EdgeInsets.only(right: 20),

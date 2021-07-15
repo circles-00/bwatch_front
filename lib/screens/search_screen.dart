@@ -1,6 +1,6 @@
 import 'package:bwatch_front/constants.dart';
 import 'package:bwatch_front/database.dart';
-import 'package:bwatch_front/providers/favorites_provider.dart';
+import 'package:bwatch_front/providers/movies_provider.dart';
 import 'package:bwatch_front/routes/single_movie_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +14,7 @@ class _SearchScreenState extends State<SearchScreen> {
   final _searchInputController = TextEditingController();
 
   FutureBuilder searchResults() {
-    final favoritesData = Provider.of<FavoritesProvider>(context);
+    final favoritesData = Provider.of<MoviesProvider>(context);
     return FutureBuilder(
         future: searchMovie(_searchInputController.text.toString().trim()),
         builder: (BuildContext context, AsyncSnapshot snapshot) {

@@ -22,13 +22,18 @@ class SingleMovie extends StatefulWidget {
 
 class _SingleMovieState extends State<SingleMovie> {
   List<int> _ids = [];
+  bool _isFavorite = false;
+  bool _isCalled = false;
   @override
   Widget build(BuildContext context) {
     final favoritesData = Provider.of<FavoritesProvider>(context);
     favoritesData.ids.then((value) {
-      if (mounted) {
+      if (mounted && _isCalled == false) {
         setState(() {
           _ids = value;
+          if (_ids.contains(widget.id)) {
+            _isFavorite = true;
+          }
         });
       }
     });
@@ -57,11 +62,21 @@ class _SingleMovieState extends State<SingleMovie> {
                     padding: EdgeInsets.only(top: 20, right: 15),
                     child: GestureDetector(
                         onTap: () {
-                          _ids.contains(widget.id)
-                              ? favoritesData.removeFavorite(widget.id)
-                              : favoritesData.addFavorite(widget.id);
+                          if (_isFavorite) {
+                            favoritesData.removeFavorite(widget.id);
+                            setState(() {
+                              _isFavorite = false;
+                              _isCalled = true;
+                            });
+                          } else {
+                            favoritesData.addFavorite(widget.id);
+                            setState(() {
+                              _isFavorite = true;
+                              _isCalled = true;
+                            });
+                          }
                         },
-                        child: _ids.contains(widget.id)
+                        child: _isFavorite
                             ? Icon(Icons.favorite, color: Colors.red)
                             : Icon(Icons.favorite_border_outlined,
                                 color: Colors.red)))

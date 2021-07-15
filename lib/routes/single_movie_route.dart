@@ -16,3 +16,17 @@ Future<dynamic> singleMovieRoute(context, snapshot, moviesData, index) {
                     image: snapshot.data[index].image),
               )));
 }
+
+Future<dynamic> singleRelatedMovieRoute(context, snapshot, moviesData, index) {
+  return Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+          builder: (context) => ChangeNotifierProvider<MoviesProvider>.value(
+                value: MoviesProvider(token: moviesData.token),
+                child: SingleMovie(
+                    id: snapshot.data[index].id,
+                    title: snapshot.data[index].title,
+                    overview: snapshot.data[index].overview,
+                    image: snapshot.data[index].image),
+              )));
+}

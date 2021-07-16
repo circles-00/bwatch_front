@@ -1,6 +1,6 @@
 import 'package:bwatch_front/constants.dart';
 import 'package:bwatch_front/widgets/recommended_movies.dart';
-import 'package:bwatch_front/widgets/smovie_appbar.dart';
+import 'package:bwatch_front/widgets/app_bars/smovie_appbar.dart';
 import 'package:flutter/material.dart';
 
 class SingleMovie extends StatelessWidget {

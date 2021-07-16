@@ -1,10 +1,9 @@
 import 'package:bwatch_front/database.dart';
 import 'package:bwatch_front/providers/data_provider.dart';
 import 'package:bwatch_front/screens/home_screen.dart';
-import 'package:bwatch_front/screens/login_screen.dart';
-import 'package:bwatch_front/screens/profile.dart';
-import 'package:bwatch_front/screens/search_screen.dart';
-import 'package:bwatch_front/services/auth_service.dart';
+import 'package:bwatch_front/screens/profile_screen.dart';
+import 'package:bwatch_front/widgets/app_bars/home_screen_appbar.dart';
+import 'package:bwatch_front/widgets/app_bars/profile_appbar.dart';
 import 'package:provider/provider.dart';
 
 import '../constants.dart';
@@ -34,12 +33,12 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     // Set initial state, favoritelist and watchlist
     super.initState();
-    getFavoriteMovies(widget.token).then((value) {
+    getFavoriteMoviesIds(widget.token).then((value) {
       setState(() {
         widget._favIds = value;
       });
     });
-    getWatchList(widget.token).then((value) {
+    getWatchListIds(widget.token).then((value) {
       setState(() {
         widget._watchListIds = value;
       });
@@ -49,6 +48,12 @@ class _MainScreenState extends State<MainScreen> {
   void onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
+    });
+  }
+
+  void notifyParent() {
+    setState(() {
+      _currentIndex = 0;
     });
   }
 
@@ -86,58 +91,13 @@ class _MainScreenState extends State<MainScreen> {
             )
           ],
         ),
-        appBar: AppBar(
-          brightness: Brightness.dark,
-          backgroundColor: Color(kPrimaryColor),
-          elevation: 0,
-          leading: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        ChangeNotifierProvider<DataProvider>.value(
-                      value: DataProvider(token: widget.token),
-                      child: SearchScreen(),
-                    ),
-                  ),
-                );
-              },
-              child: Icon(Icons.search)),
-          actions: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Hello, ' + widget.firstName,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                // Text('Macedonia', style: TextStyle(fontSize: 10)),
-              ],
-            ),
-            Padding(
-                padding: EdgeInsets.only(right: 8, left: 15),
-                child: GestureDetector(
-                  onTap: () async {
-                    APIService auth = APIService();
-                    await auth.logout();
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => LoginScreen(),
-                      ),
-                      (route) => false,
-                    );
-                  },
-                  child: Icon(
-                    Icons.logout,
-                    size: 30,
-                  ),
-                ))
-          ],
-        ),
+        appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(50),
+            child: _currentIndex == 0
+                ? HomeScreenAppBar()
+                : ProfileAppBar(
+                    notifyParent: notifyParent,
+                  )),
         body: _children[_currentIndex],
       ),
     );

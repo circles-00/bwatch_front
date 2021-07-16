@@ -113,10 +113,11 @@ class _SingleMovieAppBarState extends State<SingleMovieAppBar> {
     return AppBar(
       title: Text(widget.movieTitle),
       leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(Icons.arrow_back)),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        icon: Icon(Icons.arrow_back),
+      ),
       backgroundColor: Color(kPrimaryColor),
       actions: <Widget>[
         Row(

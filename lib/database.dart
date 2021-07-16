@@ -6,6 +6,23 @@ import 'package:http/http.dart' as http;
 import 'models/actor_model.dart';
 
 //Singleton
+
+Future<Movie> getSingleMovie(int id, String token) async {
+  var response = await http.get(
+      Uri.parse('https://bwatch.herokuapp.com/api/v1/movies/' + id.toString()),
+      headers: {"authorization": "Bearer $token"});
+
+  var jsonData = json.decode(response.body)['data'];
+  Movie movie = Movie(
+      id: jsonData['id'],
+      title: jsonData['title'],
+      overview: jsonData['overview'],
+      image: jsonData['poster_path'],
+      rating: jsonData['vote_average'].toStringAsFixed(1));
+
+  return movie;
+}
+
 Future<List<Movie>> getMovies(String collectionType) async {
   var response = await http.get(Uri.parse(
       'https://bwatch.herokuapp.com/api/v1/movies/' + collectionType));
@@ -73,7 +90,7 @@ Future<List<Movie>> getRecommended(id) async {
 }
 
 // Get favorite movies of user
-Future<List<int>> getFavoriteMovies(String token) async {
+Future<List<int>> getFavoriteMoviesIds(String token) async {
   var response = await http.get(
       Uri.parse('https://bwatch.herokuapp.com/api/v1/users/favorites/'),
       headers: {"authorization": "Bearer $token"});
@@ -83,6 +100,22 @@ Future<List<int>> getFavoriteMovies(String token) async {
 
   for (var m in jsonData) {
     movies.add(m);
+  }
+
+  return movies;
+}
+
+Future<List<Movie>> getFavoriteMovies(String token) async {
+  var response = await http.get(
+      Uri.parse('https://bwatch.herokuapp.com/api/v1/users/favorites/'),
+      headers: {"authorization": "Bearer $token"});
+
+  var jsonData = json.decode(response.body)['data'];
+  List<Movie> movies = [];
+
+  for (var id in jsonData) {
+    Movie movie = await getSingleMovie(id, token);
+    movies.add(movie);
   }
 
   return movies;
@@ -103,7 +136,7 @@ Future<void> removeFavoriteMovie(String token, int id) async {
 }
 
 // WATCH-LIST
-Future<List<int>> getWatchList(String token) async {
+Future<List<int>> getWatchListIds(String token) async {
   var response = await http.get(
       Uri.parse('https://bwatch.herokuapp.com/api/v1/users/watch-list/'),
       headers: {"authorization": "Bearer $token"});
@@ -113,6 +146,22 @@ Future<List<int>> getWatchList(String token) async {
 
   for (var m in jsonData) {
     movies.add(m);
+  }
+
+  return movies;
+}
+
+Future<List<Movie>> getWatchList(String token) async {
+  var response = await http.get(
+      Uri.parse('https://bwatch.herokuapp.com/api/v1/users/watch-list/'),
+      headers: {"authorization": "Bearer $token"});
+
+  var jsonData = json.decode(response.body)['data'];
+  List<Movie> movies = [];
+
+  for (var id in jsonData) {
+    Movie movie = await getSingleMovie(id, token);
+    movies.add(movie);
   }
 
   return movies;

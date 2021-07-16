@@ -1,8 +1,7 @@
-import 'dart:convert';
-
-import 'package:bwatch_front/screens/login_screen.dart';
-import 'package:bwatch_front/screens/main_screen.dart';
+import 'package:bwatch_front/providers/movies_provider.dart';
+import 'package:bwatch_front/widgets/startup_check_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'services/auth_service.dart';
 
@@ -10,36 +9,29 @@ void main() {
   runApp(BWatch());
 }
 
-class BWatch extends StatelessWidget {
+class BWatch extends StatefulWidget {
+  @override
+  _BWatchState createState() => _BWatchState();
+}
+
+class _BWatchState extends State<BWatch> {
+  Map<String, dynamic>? _userData;
+  @override
+  void initState() {
+    super.initState();
+    APIService.getJWT().then((value) {
+      _userData = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return ChangeNotifierProvider(
+      create: (ctx) => MoviesProvider(token: _userData!['token']),
+      child: MaterialApp(
         title: "BWatch",
-        debugShowCheckedModeBanner: false,
-        home: FutureBuilder(
-          future: APIService.getJWT(),
-          builder: (context, snapshot) {
-            if (snapshot.data != null) {
-              final userData = snapshot.data as Map<String, dynamic>;
-              var jwt = userData['token'].split(".");
-
-              if (jwt.length != 3) {
-                return LoginScreen();
-              } else {
-                var payload = json.decode(
-                    ascii.decode(base64.decode(base64.normalize(jwt[1]))));
-                if (DateTime.fromMillisecondsSinceEpoch(payload["exp"] * 1000)
-                    .isAfter(DateTime.now())) {
-                  return MainScreen(
-                      firstName: userData['firstName'],
-                      token: userData['token']);
-                } else {
-                  return LoginScreen();
-                }
-              }
-            } else
-              return LoginScreen();
-          },
-        ));
+        home: StartupWidget(userData: _userData),
+      ),
+    );
   }
 }

@@ -146,7 +146,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          print(requestModel.toJson());
                           setState(() {
                             isApiCallProcess = true;
                           });

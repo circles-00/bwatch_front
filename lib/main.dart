@@ -20,7 +20,6 @@ class _BWatchState extends State<BWatch> {
 
   @override
   Widget build(BuildContext context) {
-    print('build main');
     APIService.getJWT().then((value) {
       if (_token == 'init') {
         setState(() {

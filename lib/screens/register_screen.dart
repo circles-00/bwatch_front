@@ -180,7 +180,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             decoration: InputDecoration(
                                 border: InputBorder.none,
                                 labelStyle: TextStyle(color: Colors.white),
-                                hintText: "Confirm Password",
+                                hintText: "Password",
                                 hintStyle: TextStyle(color: Colors.grey)),
                           ),
                         ),
@@ -207,7 +207,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             decoration: InputDecoration(
                                 border: InputBorder.none,
                                 labelStyle: TextStyle(color: Colors.white),
-                                hintText: "Password",
+                                hintText: "Confirm Password",
                                 hintStyle: TextStyle(color: Colors.grey)),
                           ),
                         )
@@ -234,7 +234,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        print(requestModel.toJson());
                         setState(() {
                           isApiCallProcess = true;
                         });

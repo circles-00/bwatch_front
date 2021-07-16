@@ -20,11 +20,83 @@ class _SingleMovieAppBarState extends State<SingleMovieAppBar> {
   bool _isFavorite = false;
   bool _isInWatchList = false;
 
+  // Snackbars
+  final _addToFavSnackbar = SnackBar(
+    content: Text(
+      'Added to favorites',
+      style: TextStyle(color: Color(kPrimaryColor)),
+    ),
+    behavior: SnackBarBehavior.floating,
+    duration: const Duration(seconds: 1),
+    backgroundColor: Colors.white,
+    margin: EdgeInsets.all(15),
+  );
+
+  final _removeFromFavSnackbar = SnackBar(
+    content: Text('Removed from favorites',
+        style: TextStyle(color: Color(kPrimaryColor))),
+    behavior: SnackBarBehavior.floating,
+    duration: const Duration(seconds: 1),
+    backgroundColor: Colors.white,
+    margin: EdgeInsets.all(15),
+  );
+
+  final _addToWatchListSnackbar = SnackBar(
+    content: Text('Added to watch list',
+        style: TextStyle(color: Color(kPrimaryColor))),
+    behavior: SnackBarBehavior.floating,
+    duration: const Duration(seconds: 1),
+    backgroundColor: Colors.white,
+    margin: EdgeInsets.all(15),
+  );
+
+  final _removeFromWatchListSnackbar = SnackBar(
+    content: Text('Removed from watch list',
+        style: TextStyle(color: Color(kPrimaryColor))),
+    behavior: SnackBarBehavior.floating,
+    duration: const Duration(seconds: 1),
+    backgroundColor: Colors.white,
+    margin: EdgeInsets.all(15),
+  );
+
   @override
   Widget build(BuildContext context) {
     final moviesData = Provider.of<MoviesProvider>(context, listen: false);
     List<int> favIDs = moviesData.favorites;
     List<int> watchListIDs = moviesData.watchList;
+
+    // Favorites/WatchList Add/Remove Buttons
+    addToFav() {
+      moviesData.addFavorite(widget.movieId);
+      setState(() {
+        _isFavorite = true;
+        favIDs.add(widget.movieId);
+      });
+    }
+
+    removeFromFav() {
+      moviesData.removeFavorite(widget.movieId);
+      setState(() {
+        _isFavorite = false;
+        favIDs.remove(widget.movieId);
+      });
+    }
+
+    addToWatchList() {
+      moviesData.addMovieToWatchList(widget.movieId);
+      setState(() {
+        _isInWatchList = true;
+        watchListIDs.add(widget.movieId);
+      });
+    }
+
+    removeFromWatchList() {
+      moviesData.removeMovieFromWatchList(widget.movieId);
+      setState(() {
+        _isInWatchList = false;
+        watchListIDs.remove(widget.movieId);
+      });
+    }
 
     if (favIDs.contains(widget.movieId)) {
       setState(() {
@@ -37,8 +109,6 @@ class _SingleMovieAppBarState extends State<SingleMovieAppBar> {
         _isInWatchList = true;
       });
     }
-
-    // print(favIDs);
 
     return AppBar(
       title: Text(widget.movieTitle),
@@ -59,17 +129,13 @@ class _SingleMovieAppBarState extends State<SingleMovieAppBar> {
                 child: GestureDetector(
                   onTap: () {
                     if (_isInWatchList) {
-                      moviesData.removeMovieFromWatchList(widget.movieId);
-                      setState(() {
-                        _isInWatchList = false;
-                        watchListIDs.remove(widget.movieId);
-                      });
+                      removeFromWatchList();
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(_removeFromWatchListSnackbar);
                     } else {
-                      moviesData.addMovieToWatchList(widget.movieId);
-                      setState(() {
-                        _isInWatchList = true;
-                        watchListIDs.add(widget.movieId);
-                      });
+                      addToWatchList();
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(_addToWatchListSnackbar);
                     }
                   },
                   child: Icon(
@@ -83,17 +149,13 @@ class _SingleMovieAppBarState extends State<SingleMovieAppBar> {
                 child: GestureDetector(
                     onTap: () {
                       if (_isFavorite) {
-                        moviesData.removeFavorite(widget.movieId);
-                        setState(() {
-                          _isFavorite = false;
-                          favIDs.remove(widget.movieId);
-                        });
+                        removeFromFav();
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(_removeFromFavSnackbar);
                       } else {
-                        moviesData.addFavorite(widget.movieId);
-                        setState(() {
-                          _isFavorite = true;
-                          favIDs.add(widget.movieId);
-                        });
+                        addToFav();
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(_addToFavSnackbar);
                       }
                     },
                     child: _isFavorite

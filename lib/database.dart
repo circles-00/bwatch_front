@@ -11,7 +11,6 @@ Future<List<Movie>> getMovies(String collectionType) async {
       'https://bwatch.herokuapp.com/api/v1/movies/' + collectionType));
 
   var jsonData = json.decode(response.body)['data']['results'];
-  // print(jsonData);
   List<Movie> movies = [];
 
   for (var m in jsonData) {
@@ -24,8 +23,6 @@ Future<List<Movie>> getMovies(String collectionType) async {
 
     movies.add(movie);
   }
-
-  // print(movies.length);
 
   return movies;
 }
@@ -39,7 +36,6 @@ Future<List<Movie>> searchMovie(query) async {
       body: jsonEncode(<String, String>{'movieName': query.toString()}));
 
   var jsonData = json.decode(response.body)['data'];
-  // print(jsonData);
   List<Movie> movies = [];
 
   for (var m in jsonData) {
@@ -52,19 +48,15 @@ Future<List<Movie>> searchMovie(query) async {
     movies.add(movie);
   }
 
-  // print(movies);
-
   return movies;
 }
 
 Future<List<Movie>> getRecommended(id) async {
-  // print(id);
   var response = await http.get(Uri.parse(
       'https://bwatch.herokuapp.com/api/v1/movies/recommended/' +
           id.toString()));
 
   var jsonData = json.decode(response.body)['data']['results'];
-  // print(jsonData);
   List<Movie> movies = [];
 
   for (var m in jsonData) {
@@ -77,27 +69,21 @@ Future<List<Movie>> getRecommended(id) async {
     movies.add(movie);
   }
 
-  // print(movies);
-
   return movies;
 }
 
 // Get favorite movies of user
 Future<List<int>> getFavoriteMovies(String token) async {
-  // print(token);
   var response = await http.get(
       Uri.parse('https://bwatch.herokuapp.com/api/v1/users/favorites/'),
       headers: {"authorization": "Bearer $token"});
 
   var jsonData = json.decode(response.body)['data'];
-  // print(jsonData);
   List<int> movies = [];
 
   for (var m in jsonData) {
     movies.add(m);
   }
-
-  // print(movies.length);
 
   return movies;
 }
@@ -117,15 +103,12 @@ Future<void> removeFavoriteMovie(String token, int id) async {
 }
 
 // WATCH-LIST
-
 Future<List<int>> getWatchList(String token) async {
-  // print(token);
   var response = await http.get(
       Uri.parse('https://bwatch.herokuapp.com/api/v1/users/watch-list/'),
       headers: {"authorization": "Bearer $token"});
 
   var jsonData = json.decode(response.body)['data'];
-  // print(jsonData);
   List<int> movies = [];
 
   for (var m in jsonData) {

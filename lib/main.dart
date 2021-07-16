@@ -16,18 +16,22 @@ class BWatch extends StatefulWidget {
 
 class _BWatchState extends State<BWatch> {
   Map<String, dynamic>? _userData;
-  @override
-  void initState() {
-    super.initState();
-    APIService.getJWT().then((value) {
-      _userData = value;
-    });
-  }
+  String _token = 'init';
 
   @override
   Widget build(BuildContext context) {
+    print('build main');
+    APIService.getJWT().then((value) {
+      if (_token == 'init') {
+        setState(() {
+          _userData = value;
+          _token = _userData!['token'];
+        });
+      }
+    });
+
     return ChangeNotifierProvider(
-      create: (ctx) => MoviesProvider(token: _userData!['token']),
+      create: (ctx) => MoviesProvider(token: _token),
       child: MaterialApp(
         title: "BWatch",
         home: StartupWidget(userData: _userData),

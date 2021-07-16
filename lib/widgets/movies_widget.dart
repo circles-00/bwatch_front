@@ -14,7 +14,7 @@ class MoviesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final moviesData = Provider.of<MoviesProvider>(context, listen: false);
+    final moviesData = Provider.of<MoviesProvider>(context);
     return FutureBuilder(
         future: getMovies(this.listType),
         builder: (BuildContext context, AsyncSnapshot snapshot) {

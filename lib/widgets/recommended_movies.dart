@@ -25,8 +25,11 @@ class RecommendedMovies extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () {
-                  singleRelatedMovieRoute(context, snapshot,
-                      Provider.of<MoviesProvider>(context), index);
+                  singleRelatedMovieRoute(
+                      context,
+                      snapshot,
+                      Provider.of<MoviesProvider>(context, listen: false),
+                      index);
                 },
                 child: Container(
                   margin: EdgeInsets.only(right: 20),

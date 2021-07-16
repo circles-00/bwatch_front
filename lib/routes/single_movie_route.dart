@@ -18,7 +18,7 @@ Future<dynamic> singleMovieRoute(context, snapshot, moviesData, index) {
 }
 
 Future<dynamic> singleRelatedMovieRoute(context, snapshot, moviesData, index) {
-  return Navigator.pushReplacement(
+  return Navigator.push(
       context,
       MaterialPageRoute(
           builder: (context) => ChangeNotifierProvider<MoviesProvider>.value(

@@ -6,16 +6,12 @@ import 'package:provider/provider.dart';
 class SingleMovieAppBar extends StatefulWidget {
   final int movieId;
   final String movieTitle;
-  final List<int> favIDs;
-  final List<int> watchListIDs;
 
-  const SingleMovieAppBar(
-      {Key? key,
-      required this.movieId,
-      required this.movieTitle,
-      required this.favIDs,
-      required this.watchListIDs})
-      : super(key: key);
+  const SingleMovieAppBar({
+    Key? key,
+    required this.movieId,
+    required this.movieTitle,
+  }) : super(key: key);
   @override
   _SingleMovieAppBarState createState() => _SingleMovieAppBarState();
 }
@@ -25,20 +21,24 @@ class _SingleMovieAppBarState extends State<SingleMovieAppBar> {
   bool _isInWatchList = false;
 
   @override
-  void initState() {
-    super.initState();
-
-    if (widget.favIDs.contains(widget.movieId)) {
-      _isFavorite = true;
-    }
-    if (widget.watchListIDs.contains(widget.movieId)) {
-      _isInWatchList = true;
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     final moviesData = Provider.of<MoviesProvider>(context, listen: false);
+    List<int> favIDs = moviesData.favorites;
+    List<int> watchListIDs = moviesData.watchList;
+
+    if (favIDs.contains(widget.movieId)) {
+      setState(() {
+        _isFavorite = true;
+      });
+    }
+
+    if (watchListIDs.contains(widget.movieId)) {
+      setState(() {
+        _isInWatchList = true;
+      });
+    }
+
+    // print(favIDs);
 
     return AppBar(
       title: Text(widget.movieTitle),
@@ -62,13 +62,13 @@ class _SingleMovieAppBarState extends State<SingleMovieAppBar> {
                       moviesData.removeMovieFromWatchList(widget.movieId);
                       setState(() {
                         _isInWatchList = false;
-                        widget.watchListIDs.remove(widget.movieId);
+                        watchListIDs.remove(widget.movieId);
                       });
                     } else {
                       moviesData.addMovieToWatchList(widget.movieId);
                       setState(() {
                         _isInWatchList = true;
-                        widget.watchListIDs.add(widget.movieId);
+                        watchListIDs.add(widget.movieId);
                       });
                     }
                   },
@@ -86,13 +86,13 @@ class _SingleMovieAppBarState extends State<SingleMovieAppBar> {
                         moviesData.removeFavorite(widget.movieId);
                         setState(() {
                           _isFavorite = false;
-                          widget.favIDs.remove(widget.movieId);
+                          favIDs.remove(widget.movieId);
                         });
                       } else {
                         moviesData.addFavorite(widget.movieId);
                         setState(() {
                           _isFavorite = true;
-                          widget.favIDs.add(widget.movieId);
+                          favIDs.add(widget.movieId);
                         });
                       }
                     },

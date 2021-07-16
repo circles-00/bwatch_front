@@ -18,10 +18,8 @@ class SingleMovie extends StatelessWidget {
       required this.image});
   @override
   Widget build(BuildContext context) {
-    final moviesData = Provider.of<MoviesProvider>(context);
-    List<int> favIds = moviesData.favorites;
-    List<int> watchListIds = moviesData.watchList;
-
+    // print(_favListIds);
+    // print(_watchListIds);
     return Scaffold(
         backgroundColor: Color(kPrimaryColor),
         appBar: PreferredSize(
@@ -29,8 +27,6 @@ class SingleMovie extends StatelessWidget {
             child: SingleMovieAppBar(
               movieId: this.id,
               movieTitle: this.title,
-              favIDs: favIds,
-              watchListIDs: watchListIds,
             )),
         body: ListView(
           shrinkWrap: true,

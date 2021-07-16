@@ -1,3 +1,4 @@
+import 'package:bwatch_front/database.dart';
 import 'package:bwatch_front/providers/movies_provider.dart';
 import 'package:bwatch_front/screens/login_screen.dart';
 import 'package:bwatch_front/screens/search_screen.dart';
@@ -15,7 +16,10 @@ class MainScreen extends StatefulWidget {
   final email;
   final token;
 
-  const MainScreen({Key? key, this.firstName, this.email, this.token})
+  List<int> _favIds = [];
+  List<int> _watchListIds = [];
+
+  MainScreen({Key? key, this.firstName, this.email, this.token})
       : super(key: key);
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -23,7 +27,28 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   @override
+  void initState() {
+    super.initState();
+    getFavoriteMovies(widget.token).then((value) {
+      setState(() {
+        widget._favIds = value;
+      });
+    });
+    getWatchList(widget.token).then((value) {
+      setState(() {
+        widget._watchListIds = value;
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final moviesData = Provider.of<MoviesProvider>(context, listen: false);
+
+    // print(widget._favIds);
+
+    moviesData.setFavoriteIDs(widget._favIds);
+    moviesData.setWatchListIDs(widget._watchListIds);
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(

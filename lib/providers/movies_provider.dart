@@ -19,22 +19,15 @@ class MoviesProvider with ChangeNotifier {
 
   // MoviesProvider(this.token);
   List<int> get favorites {
-    favoriteIDs;
     return _favoriteIDs;
   }
 
   List<int> get watchList {
-    watchListIDs;
     return _watchListIDs;
   }
 
-  Future<List<int>> get favoriteIDs async {
-    // print(token);
-    await getFavoriteMovies(token).then((value) {
-      _favoriteIDs = value;
-    });
-    // print(_ids);
-    return _favoriteIDs;
+  setFavoriteIDs(favIds) {
+    _favoriteIDs = favIds;
   }
 
   Future<void> addFavorite(int id) async {
@@ -47,13 +40,9 @@ class MoviesProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<int>> get watchListIDs async {
+  setWatchListIDs(watchIds) {
     // print(token);
-    await getWatchList(token).then((value) {
-      _watchListIDs = value;
-    });
-    // print(_ids);
-    return _watchListIDs;
+    _watchListIDs = watchIds;
   }
 
   Future<void> addMovieToWatchList(int id) async {

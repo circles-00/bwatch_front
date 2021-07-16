@@ -18,6 +18,15 @@ class MoviesProvider with ChangeNotifier {
   List<int> _watchListIDs = [];
 
   // MoviesProvider(this.token);
+  List<int> get favorites {
+    favoriteIDs;
+    return _favoriteIDs;
+  }
+
+  List<int> get watchList {
+    watchListIDs;
+    return _watchListIDs;
+  }
 
   Future<List<int>> get favoriteIDs async {
     // print(token);
@@ -30,10 +39,12 @@ class MoviesProvider with ChangeNotifier {
 
   Future<void> addFavorite(int id) async {
     await addFavoriteMovie(token, id);
+    notifyListeners();
   }
 
   Future<void> removeFavorite(int id) async {
     await removeFavoriteMovie(token, id);
+    notifyListeners();
   }
 
   Future<List<int>> get watchListIDs async {
@@ -47,9 +58,11 @@ class MoviesProvider with ChangeNotifier {
 
   Future<void> addMovieToWatchList(int id) async {
     await addToWatchList(token, id);
+    notifyListeners();
   }
 
   Future<void> removeMovieFromWatchList(int id) async {
     await removeFromWatchList(token, id);
+    notifyListeners();
   }
 }

@@ -12,6 +12,7 @@ class RecommendedMovies extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final moviesData = Provider.of<MoviesProvider>(context);
+    print('build recommended');
     return FutureBuilder(
         future: getRecommended(id),
         builder: (BuildContext context, AsyncSnapshot snapshot) {

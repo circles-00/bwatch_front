@@ -14,7 +14,7 @@ class _SearchScreenState extends State<SearchScreen> {
   final _searchInputController = TextEditingController();
 
   FutureBuilder searchResults() {
-    final favoritesData = Provider.of<MoviesProvider>(context);
+    final moviesData = Provider.of<MoviesProvider>(context, listen: false);
     return FutureBuilder(
         future: searchMovie(_searchInputController.text.toString().trim()),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -31,7 +31,7 @@ class _SearchScreenState extends State<SearchScreen> {
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () {
-                  singleMovieRoute(context, snapshot, favoritesData, index);
+                  singleMovieRoute(context, snapshot, moviesData, index);
                 },
                 child: Container(
                   margin: EdgeInsets.only(bottom: 10),

@@ -1,9 +1,11 @@
 import 'package:bwatch_front/constants.dart';
+import 'package:bwatch_front/providers/movies_provider.dart';
 import 'package:bwatch_front/widgets/recommended_movies.dart';
 import 'package:bwatch_front/widgets/smovie_appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class SingleMovie extends StatefulWidget {
+class SingleMovie extends StatelessWidget {
   final int id;
   final String title;
   final String overview;
@@ -14,21 +16,21 @@ class SingleMovie extends StatefulWidget {
       required this.title,
       required this.overview,
       required this.image});
-
-  @override
-  _SingleMovieState createState() => _SingleMovieState();
-}
-
-class _SingleMovieState extends State<SingleMovie> {
   @override
   Widget build(BuildContext context) {
+    final moviesData = Provider.of<MoviesProvider>(context);
+    List<int> favIds = moviesData.favorites;
+    List<int> watchListIds = moviesData.watchList;
+
     return Scaffold(
         backgroundColor: Color(kPrimaryColor),
         appBar: PreferredSize(
             preferredSize: const Size.fromHeight(100),
             child: SingleMovieAppBar(
-              movieId: widget.id,
-              movieTitle: widget.title,
+              movieId: this.id,
+              movieTitle: this.title,
+              favIDs: favIds,
+              watchListIDs: watchListIds,
             )),
         body: ListView(
           shrinkWrap: true,
@@ -38,8 +40,8 @@ class _SingleMovieState extends State<SingleMovie> {
               height: 20,
             ),
             Image(
-              image: NetworkImage(
-                  'https://image.tmdb.org/t/p/w500' + this.widget.image),
+              image:
+                  NetworkImage('https://image.tmdb.org/t/p/w500' + this.image),
             ),
             Container(
               height: 30,
@@ -54,7 +56,7 @@ class _SingleMovieState extends State<SingleMovie> {
             ),
             Center(
               child: Text(
-                this.widget.overview,
+                this.overview,
                 style: TextStyle(
                   fontSize: 17,
                   wordSpacing: 3,
@@ -76,7 +78,7 @@ class _SingleMovieState extends State<SingleMovie> {
             Container(
               margin: EdgeInsets.only(left: 5),
               height: 300,
-              child: RecommendedMovies(this.widget.id),
+              child: RecommendedMovies(this.id),
             ),
           ],
         ));

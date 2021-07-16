@@ -4,10 +4,6 @@ import 'package:bwatch_front/screens/single_actor.dart';
 import 'package:flutter/material.dart';
 
 class FeaturedActorsWidget extends StatelessWidget {
-  final Function() notifyParent;
-
-  FeaturedActorsWidget({required this.notifyParent});
-
   @override
   Widget build(BuildContext context) {
     return Container(

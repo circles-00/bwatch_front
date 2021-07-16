@@ -11,6 +11,7 @@ import '../widgets/main_screen_body_widget.dart';
 import '../widgets/movies_widget.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class MainScreen extends StatefulWidget {
   final firstName;
   final email;
@@ -44,8 +45,6 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     final moviesData = Provider.of<MoviesProvider>(context, listen: false);
-
-    // print(widget._favIds);
 
     moviesData.setFavoriteIDs(widget._favIds);
     moviesData.setWatchListIDs(widget._watchListIds);
@@ -94,10 +93,6 @@ class _MainScreenState extends State<MainScreen> {
                         ),
                         (route) => false,
                       );
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => LoginScreen()));
                     },
                     child: Icon(
                       Icons.logout,
@@ -130,7 +125,7 @@ class _MainScreenState extends State<MainScreen> {
                     Container(
                       margin: EdgeInsets.only(left: 20),
                       height: 300,
-                      child: MoviesWidget('popular', refresh),
+                      child: MoviesWidget('popular'),
                     ),
                     SizedBox(
                       height: 25,
@@ -153,18 +148,14 @@ class _MainScreenState extends State<MainScreen> {
                     Container(
                       margin: EdgeInsets.only(left: 20),
                       height: 300,
-                      child: MoviesWidget('upcoming', refresh),
+                      child: MoviesWidget('upcoming'),
                     ),
-                    FeaturedActorsWidget(notifyParent: refresh),
+                    FeaturedActorsWidget(),
                   ],
                 ),
               ),
             ],
           )),
     );
-  }
-
-  refresh() {
-    setState(() {});
   }
 }

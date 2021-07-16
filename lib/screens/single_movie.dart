@@ -1,9 +1,7 @@
 import 'package:bwatch_front/constants.dart';
-import 'package:bwatch_front/providers/movies_provider.dart';
 import 'package:bwatch_front/widgets/recommended_movies.dart';
 import 'package:bwatch_front/widgets/smovie_appbar.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class SingleMovie extends StatelessWidget {
   final int id;
@@ -18,8 +16,6 @@ class SingleMovie extends StatelessWidget {
       required this.image});
   @override
   Widget build(BuildContext context) {
-    // print(_favListIds);
-    // print(_watchListIds);
     return Scaffold(
         backgroundColor: Color(kPrimaryColor),
         appBar: PreferredSize(

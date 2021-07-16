@@ -87,26 +87,4 @@ class APIService {
     }
     return null;
   }
-
-  // Future<bool> autoLogin() async {
-  //   final prefs = await SharedPreferences.getInstance();
-
-  //   if (!prefs.containsKey('userData')) {
-  //     _isAuth = false;
-  //     return false;
-  //   }
-  //   final extractedUserData =
-  //       json.decode(prefs.getString('userData')!) as Map<String, dynamic>;
-  //   final expDate = extractedUserData['tokenExp'];
-  //   if (DateTime.now().millisecondsSinceEpoch >= expDate * 1000) {
-  //     _isAuth = false;
-  //     return false;
-  //   }
-  //   _token = extractedUserData['token'];
-  //   _tokenExp = extractedUserData['tokenExp'];
-  //   _firstName = extractedUserData['firstName'];
-  //   _lastName = extractedUserData['lastName'];
-  //   _isAuth = true;
-  //   return true;
-  // }
 }

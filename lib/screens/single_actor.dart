@@ -49,16 +49,6 @@ class SingleActor extends StatelessWidget {
               Container(
                 height: 30,
               ),
-              // Center(
-              //   child: Text(
-              //     "Movie description:\n",
-              //     style: TextStyle(
-              //       fontSize: 15,
-              //       color: Colors.white,
-              //       fontWeight: FontWeight.bold,
-              //     ),
-              //   ),
-              // ),
             ]));
   }
 }

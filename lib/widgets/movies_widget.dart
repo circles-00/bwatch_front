@@ -8,9 +8,8 @@ import 'package:flutter/material.dart';
 
 class MoviesWidget extends StatelessWidget {
   final String listType;
-  final Function() notifyParent;
 
-  MoviesWidget(this.listType, this.notifyParent);
+  MoviesWidget(this.listType);
 
   @override
   Widget build(BuildContext context) {

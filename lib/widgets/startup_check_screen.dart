@@ -12,7 +12,9 @@ class StartupWidget extends StatelessWidget {
       if (DateTime.fromMillisecondsSinceEpoch(userData['tokenExp'] * 1000)
           .isAfter(DateTime.now())) {
         return MainScreen(
-            firstName: userData['firstName'], token: userData['token']);
+            firstName: userData['firstName'],
+            lastName: userData['lastName'],
+            token: userData['token']);
       } else {
         return LoginScreen();
       }

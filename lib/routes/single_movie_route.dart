@@ -1,14 +1,14 @@
-import 'package:bwatch_front/providers/movies_provider.dart';
+import 'package:bwatch_front/providers/data_provider.dart';
 import 'package:bwatch_front/screens/single_movie.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-Future<dynamic> singleMovieRoute(context, snapshot, moviesData, index) {
+Future<dynamic> singleMovieRoute(context, snapshot, globalData, index) {
   return Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => ChangeNotifierProvider<MoviesProvider>.value(
-                value: MoviesProvider(token: moviesData.token),
+          builder: (context) => ChangeNotifierProvider<DataProvider>.value(
+                value: DataProvider(token: globalData.token),
                 child: SingleMovie(
                     id: snapshot.data[index].id,
                     title: snapshot.data[index].title,
@@ -17,12 +17,12 @@ Future<dynamic> singleMovieRoute(context, snapshot, moviesData, index) {
               )));
 }
 
-Future<dynamic> singleRelatedMovieRoute(context, snapshot, moviesData, index) {
+Future<dynamic> singleRelatedMovieRoute(context, snapshot, globalData, index) {
   return Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => ChangeNotifierProvider<MoviesProvider>.value(
-                value: MoviesProvider(token: moviesData.token),
+          builder: (context) => ChangeNotifierProvider<DataProvider>.value(
+                value: DataProvider(token: globalData.token),
                 child: SingleMovie(
                     id: snapshot.data[index].id,
                     title: snapshot.data[index].title,

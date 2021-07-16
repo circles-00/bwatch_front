@@ -1,6 +1,6 @@
 import 'package:bwatch_front/constants.dart';
 import 'package:bwatch_front/database.dart';
-import 'package:bwatch_front/providers/movies_provider.dart';
+import 'package:bwatch_front/providers/data_provider.dart';
 import 'package:bwatch_front/routes/single_movie_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +14,7 @@ class _SearchScreenState extends State<SearchScreen> {
   final _searchInputController = TextEditingController();
 
   FutureBuilder searchResults() {
-    final moviesData = Provider.of<MoviesProvider>(context, listen: false);
+    final globalData = Provider.of<DataProvider>(context, listen: false);
     return FutureBuilder(
         future: searchMovie(_searchInputController.text.toString().trim()),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -31,7 +31,7 @@ class _SearchScreenState extends State<SearchScreen> {
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () {
-                  singleMovieRoute(context, snapshot, moviesData, index);
+                  singleMovieRoute(context, snapshot, globalData, index);
                 },
                 child: Container(
                   margin: EdgeInsets.only(bottom: 10),

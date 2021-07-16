@@ -1,5 +1,5 @@
 import 'package:bwatch_front/constants.dart';
-import 'package:bwatch_front/providers/movies_provider.dart';
+import 'package:bwatch_front/providers/data_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -61,13 +61,13 @@ class _SingleMovieAppBarState extends State<SingleMovieAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    final moviesData = Provider.of<MoviesProvider>(context, listen: false);
-    List<int> favIDs = moviesData.favorites;
-    List<int> watchListIDs = moviesData.watchList;
+    final globalData = Provider.of<DataProvider>(context, listen: false);
+    List<int> favIDs = globalData.favorites;
+    List<int> watchListIDs = globalData.watchList;
 
     // Favorites/WatchList Add/Remove Buttons
     addToFav() {
-      moviesData.addFavorite(widget.movieId);
+      globalData.addFavorite(widget.movieId);
       setState(() {
         _isFavorite = true;
         favIDs.add(widget.movieId);
@@ -75,7 +75,7 @@ class _SingleMovieAppBarState extends State<SingleMovieAppBar> {
     }
 
     removeFromFav() {
-      moviesData.removeFavorite(widget.movieId);
+      globalData.removeFavorite(widget.movieId);
       setState(() {
         _isFavorite = false;
         favIDs.remove(widget.movieId);
@@ -83,7 +83,7 @@ class _SingleMovieAppBarState extends State<SingleMovieAppBar> {
     }
 
     addToWatchList() {
-      moviesData.addMovieToWatchList(widget.movieId);
+      globalData.addMovieToWatchList(widget.movieId);
       setState(() {
         _isInWatchList = true;
         watchListIDs.add(widget.movieId);
@@ -91,7 +91,7 @@ class _SingleMovieAppBarState extends State<SingleMovieAppBar> {
     }
 
     removeFromWatchList() {
-      moviesData.removeMovieFromWatchList(widget.movieId);
+      globalData.removeMovieFromWatchList(widget.movieId);
       setState(() {
         _isInWatchList = false;
         watchListIDs.remove(widget.movieId);

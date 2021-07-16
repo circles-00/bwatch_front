@@ -1,4 +1,4 @@
-import 'package:bwatch_front/providers/movies_provider.dart';
+import 'package:bwatch_front/providers/data_provider.dart';
 import 'package:bwatch_front/widgets/startup_check_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +30,7 @@ class _BWatchState extends State<BWatch> {
     });
 
     return ChangeNotifierProvider(
-      create: (ctx) => MoviesProvider(token: _token),
+      create: (ctx) => DataProvider(token: _token),
       child: MaterialApp(
         title: "BWatch",
         home: StartupWidget(userData: _userData),

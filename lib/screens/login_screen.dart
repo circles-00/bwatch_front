@@ -159,12 +159,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
                             if (value.status == 'success') {
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => MainScreen(
-                                            firstName: value.firstName,
-                                            token: value.token,
-                                          )));
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MainScreen(
+                                    firstName: value.firstName,
+                                    lastName: value.lastName,
+                                    token: value.token,
+                                  ),
+                                ),
+                              );
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(

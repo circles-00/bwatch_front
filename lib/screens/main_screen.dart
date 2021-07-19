@@ -28,11 +28,12 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   // Needed for BottomNavigation
   int _currentIndex = 0;
-  final List<Widget> _children = [HomeScreen(), Profile()];
+  List<Widget> _children = [];
   @override
   void initState() {
     // Set initial state, favoritelist and watchlist
     super.initState();
+    _children = [HomeScreen(), Profile(token: widget.token)];
     getFavoriteMoviesIds(widget.token).then((value) {
       setState(() {
         widget._favIds = value;

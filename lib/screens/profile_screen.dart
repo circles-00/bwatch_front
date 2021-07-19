@@ -1,5 +1,6 @@
 import 'package:bwatch_front/constants.dart';
 import 'package:bwatch_front/providers/data_provider.dart';
+import 'package:bwatch_front/utils/get_image.dart';
 import 'package:bwatch_front/widgets/image_picker.dart';
 import 'package:bwatch_front/widgets/favorites_watchlist_horizontal.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,9 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
+  final String token;
+
+  const Profile({Key? key, required this.token}) : super(key: key);
   @override
   _ProfileState createState() => _ProfileState();
 }
@@ -22,11 +26,18 @@ class _ProfileState extends State<Profile> {
     });
   }
 
-  void _getProfileImg() async {
-    final prefs = await SharedPreferences.getInstance();
-    if (prefs.containsKey('profileImgUrl')) {
-      _imgUrl = prefs.getString('profileImgUrl');
-    }
+  Future<void> _getProfileImg() async {
+    // final prefs = await SharedPreferences.getInstance();
+    // if (prefs.containsKey('profileImgUrl')) {
+    //   setState(() {
+    //     _imgUrl = prefs.getString('profileImgUrl');
+    //   });
+    // }
+    await getProfileImage(widget.token).then((value) {
+      setState(() {
+        _imgUrl = value;
+      });
+    });
   }
 
   @override
@@ -37,7 +48,6 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    // print(_imgUrl);
     final globalData = Provider.of<DataProvider>(context);
     return Scaffold(
       backgroundColor: Color(kPrimaryColor),
@@ -59,7 +69,7 @@ class _ProfileState extends State<Profile> {
                           borderRadius: BorderRadius.circular(100.0),
                           child: Image(
                               fit: BoxFit.cover,
-                              image: _imgUrl != null
+                              image: _imgUrl != null && _imgUrl != 'null'
                                   ? NetworkImage(_imgUrl!)
                                   : AssetImage('assets/images/empty_avatar.png')
                                       as ImageProvider),
@@ -123,7 +133,7 @@ class _ProfileState extends State<Profile> {
                         ),
                       ),
                     )
-                  : Center(),
+                  : Text(''),
               SizedBox(
                 height: 55,
               ),

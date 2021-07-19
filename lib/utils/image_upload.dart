@@ -5,8 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: non_constant_identifier_names
 Future<String> ImageUpload(String path, String token) async {
-  print(path);
-  print(token);
   Map<String, String> header = {"authorization": "Bearer $token"};
   var request = http.MultipartRequest(
       "POST",
@@ -19,14 +17,15 @@ Future<String> ImageUpload(String path, String token) async {
   if (response.statusCode == 200) {
     // print('Image successfully uplaoded');
     status = await response.stream.bytesToString();
-  }
-  var jsonData = json.decode(status);
-  var imgUrl = jsonData['url'];
-  final prefs = await SharedPreferences.getInstance();
-  prefs.setString(
-    'profileImgUrl',
-    imgUrl,
-  );
+    var jsonData = json.decode(status);
+    var imgUrl = jsonData['url'];
+    // final prefs = await SharedPreferences.getInstance();
+    // prefs.setString(
+    //   'profileImgUrl',
+    //   imgUrl,
+    // );
 
-  return imgUrl;
+    return imgUrl.toString();
+  }
+  return 'null';
 }

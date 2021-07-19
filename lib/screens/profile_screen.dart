@@ -5,7 +5,6 @@ import 'package:bwatch_front/widgets/image_picker.dart';
 import 'package:bwatch_front/widgets/favorites_watchlist_horizontal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
   final String token;
@@ -152,7 +151,7 @@ class _ProfileState extends State<Profile> {
                 child: SizedBox(
                     height: 200,
                     child: FavoritesWatchListHorizontal(
-                        globalData.token, 'favorites')),
+                        widget.token, 'favorites')),
               ),
               SizedBox(
                 height: 35,
@@ -172,7 +171,7 @@ class _ProfileState extends State<Profile> {
                 child: SizedBox(
                     height: 200,
                     child: FavoritesWatchListHorizontal(
-                        globalData.token, 'watch-list')),
+                        widget.token, 'watch-list')),
               ),
               SizedBox(
                 height: 15,

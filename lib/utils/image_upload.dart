@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: non_constant_identifier_names
 Future<String> ImageUpload(String path, String token) async {

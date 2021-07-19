@@ -29,6 +29,13 @@ class _MainScreenState extends State<MainScreen> {
   // Needed for BottomNavigation
   int _currentIndex = 0;
   List<Widget> _children = [];
+  void notifyOnLogOut() {
+    setState(() {
+      widget._favIds = [];
+      widget._watchListIds = [];
+    });
+  }
+
   @override
   void initState() {
     // Set initial state, favoritelist and watchlist
@@ -60,11 +67,12 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final globalData = Provider.of<DataProvider>(context, listen: false);
+    final globalData = Provider.of<DataProvider>(context);
     globalData.setFirstName(widget.firstName);
     globalData.setLastName(widget.lastName);
     globalData.setFavoriteIDs(widget._favIds);
     globalData.setWatchListIDs(widget._watchListIds);
+
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -95,7 +103,7 @@ class _MainScreenState extends State<MainScreen> {
         appBar: PreferredSize(
             preferredSize: const Size.fromHeight(50),
             child: _currentIndex == 0
-                ? HomeScreenAppBar()
+                ? HomeScreenAppBar(notifyOnLogOut: notifyOnLogOut)
                 : ProfileAppBar(
                     notifyParent: notifyParent,
                   )),

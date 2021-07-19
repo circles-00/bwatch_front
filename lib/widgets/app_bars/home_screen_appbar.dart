@@ -8,8 +8,11 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class HomeScreenAppBar extends StatelessWidget {
+  final notifyOnLogOut;
   late String _firstName;
   late String _token;
+
+  HomeScreenAppBar({Key? key, required this.notifyOnLogOut}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final globalData = Provider.of<DataProvider>(context, listen: false);
@@ -51,6 +54,7 @@ class HomeScreenAppBar extends StatelessWidget {
             child: GestureDetector(
               onTap: () async {
                 APIService auth = APIService();
+                notifyOnLogOut();
                 await auth.logout();
                 Navigator.pushAndRemoveUntil(
                   context,

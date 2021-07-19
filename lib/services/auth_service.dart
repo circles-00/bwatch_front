@@ -36,7 +36,7 @@ class APIService {
         'firstName': _firstName,
         'lastName': _lastName
       });
-      prefs.setString('userData', userData);
+      await prefs.setString('userData', userData);
       return LoginResponseModel.fromJson(
         jsonData,
       );
@@ -67,7 +67,7 @@ class APIService {
 
   Future<void> logout() async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.remove('userData');
+    await prefs.clear();
     _token = 'init';
     _tokenExp = -1;
     _firstName = 'init';

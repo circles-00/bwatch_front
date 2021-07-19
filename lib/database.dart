@@ -91,6 +91,7 @@ Future<List<Movie>> getRecommended(id) async {
 
 // Get favorite movies of user
 Future<List<int>> getFavoriteMoviesIds(String token) async {
+  print(token);
   var response = await http.get(
       Uri.parse('https://bwatch.herokuapp.com/api/v1/users/favorites/'),
       headers: {"authorization": "Bearer $token"});

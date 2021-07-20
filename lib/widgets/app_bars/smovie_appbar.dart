@@ -65,6 +65,19 @@ class _SingleMovieAppBarState extends State<SingleMovieAppBar> {
     List<int> favIDs = globalData.favorites;
     List<int> watchListIDs = globalData.watchList;
 
+    // Check if movie is fav/watchlist
+
+    if (favIDs.contains(widget.movieId) && _isFavorite == false) {
+      setState(() {
+        _isFavorite = true;
+      });
+    }
+
+    if (watchListIDs.contains(widget.movieId) && _isInWatchList == false) {
+      setState(() {
+        _isInWatchList = true;
+      });
+    }
     // Favorites/WatchList Add/Remove Buttons
     addToFav() {
       globalData.addFavorite(widget.movieId);
@@ -95,18 +108,6 @@ class _SingleMovieAppBarState extends State<SingleMovieAppBar> {
       setState(() {
         _isInWatchList = false;
         watchListIDs.remove(widget.movieId);
-      });
-    }
-
-    if (favIDs.contains(widget.movieId)) {
-      setState(() {
-        _isFavorite = true;
-      });
-    }
-
-    if (watchListIDs.contains(widget.movieId)) {
-      setState(() {
-        _isInWatchList = true;
       });
     }
 

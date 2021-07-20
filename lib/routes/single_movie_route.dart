@@ -5,28 +5,32 @@ import 'package:provider/provider.dart';
 
 Future<dynamic> singleMovieRoute(context, snapshot, globalData, index) {
   return Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => ChangeNotifierProvider<DataProvider>.value(
-                value: DataProvider(token: globalData.token),
-                child: SingleMovie(
-                    id: snapshot.data[index].id,
-                    title: snapshot.data[index].title,
-                    overview: snapshot.data[index].overview,
-                    image: snapshot.data[index].image),
-              )));
+    context,
+    MaterialPageRoute(
+      builder: (context) => ChangeNotifierProvider<DataProvider>.value(
+        value: DataProvider(token: globalData.token),
+        child: SingleMovie(
+            id: snapshot.data[index].id,
+            title: snapshot.data[index].title,
+            overview: snapshot.data[index].overview,
+            image: snapshot.data[index].image),
+      ),
+    ),
+  );
 }
 
 Future<dynamic> singleRelatedMovieRoute(context, snapshot, globalData, index) {
   return Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => ChangeNotifierProvider<DataProvider>.value(
-                value: DataProvider(token: globalData.token),
-                child: SingleMovie(
-                    id: snapshot.data[index].id,
-                    title: snapshot.data[index].title,
-                    overview: snapshot.data[index].overview,
-                    image: snapshot.data[index].image),
-              )));
+    context,
+    MaterialPageRoute(
+      builder: (context) => ChangeNotifierProvider<DataProvider>.value(
+        value: DataProvider(token: globalData.token),
+        child: SingleMovie(
+            id: snapshot.data[index].id,
+            title: snapshot.data[index].title,
+            overview: snapshot.data[index].overview,
+            image: snapshot.data[index].image),
+      ),
+    ),
+  );
 }

@@ -11,10 +11,11 @@ class FavoritesWatchListHorizontal extends StatelessWidget {
   FavoritesWatchListHorizontal(this.token, this.listType);
   @override
   Widget build(BuildContext context) {
+    final globalData = Provider.of<DataProvider>(context);
     return FutureBuilder(
         future: this.listType == 'favorites'
-            ? getFavoriteMovies(this.token)
-            : getWatchList(this.token),
+            ? getFavoriteMovies(globalData.favorites, this.token)
+            : getWatchList(globalData.watchList, this.token),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.data == null) {
             return Center(child: CircularProgressIndicator());

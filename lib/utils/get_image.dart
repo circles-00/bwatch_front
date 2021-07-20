@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: non_constant_identifier_names
 Future<String> getProfileImage(String token) async {
-  print(token);
+  // print(token);
   var response = await http.get(
       Uri.parse('https://bwatch.herokuapp.com/api/v1/users/profile-img/'),
       headers: {"authorization": "Bearer $token"});

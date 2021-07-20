@@ -72,6 +72,7 @@ class _MainScreenState extends State<MainScreen> {
     globalData.setLastName(widget.lastName);
     globalData.setFavoriteIDs(widget._favIds);
     globalData.setWatchListIDs(widget._watchListIds);
+    globalData.setToken(widget.token);
 
     return WillPopScope(
       onWillPop: () async => false,

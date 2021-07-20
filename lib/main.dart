@@ -30,7 +30,7 @@ class _BWatchState extends State<BWatch> {
     });
 
     return ChangeNotifierProvider(
-      create: (ctx) => DataProvider(token: _token),
+      create: (ctx) => DataProvider(),
       child: MaterialApp(
         title: "BWatch",
         home: StartupWidget(userData: _userData),

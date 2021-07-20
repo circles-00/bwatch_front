@@ -15,8 +15,8 @@ class DataProvider with ChangeNotifier {
   DataProvider._internal();
 
   factory DataProvider({String token = 'init'}) {
-    print('DATA PROVIDER');
-    print(token);
+    // print('DATA PROVIDER');
+    // print(token);
     _instance.token = token;
     return _instance;
   }
@@ -87,5 +87,9 @@ class DataProvider with ChangeNotifier {
 
   setLastName(String name) {
     _lastName = name;
+  }
+
+  setToken(String _token) {
+    token = _token;
   }
 }

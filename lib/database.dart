@@ -14,11 +14,13 @@ Future<Movie> getSingleMovie(int id, String token) async {
 
   var jsonData = json.decode(response.body)['data'];
   Movie movie = Movie(
-      id: jsonData['id'],
-      title: jsonData['title'],
-      overview: jsonData['overview'],
-      image: jsonData['poster_path'],
-      rating: jsonData['vote_average'].toStringAsFixed(1));
+    id: jsonData['id'],
+    title: jsonData['title'],
+    overview: jsonData['overview'],
+    image: jsonData['poster_path'],
+    rating: jsonData['vote_average'].toStringAsFixed(1),
+    genres: jsonData['genres'] == null ? [] : jsonData['genres'],
+  );
 
   return movie;
 }
@@ -36,7 +38,8 @@ Future<List<Movie>> getMovies(String collectionType) async {
         title: m['title'],
         overview: m['overview'],
         image: m['poster_path'],
-        rating: m['vote_average'].toString());
+        rating: m['vote_average'].toString(),
+        genres: m['genres'] == null ? [] : m['genres']);
 
     movies.add(movie);
   }
@@ -61,7 +64,8 @@ Future<List<Movie>> searchMovie(query) async {
         title: m['title'],
         overview: m['overview'],
         image: m['poster_path'] == null ? "" : m['poster_path'],
-        rating: m['vote_average'].toString());
+        rating: m['vote_average'].toString(),
+        genres: m['genres'] == null ? [] : m['genres']);
     movies.add(movie);
   }
 
@@ -82,7 +86,8 @@ Future<List<Movie>> getRecommended(id) async {
         title: m['title'],
         overview: m['overview'],
         image: m['poster_path'],
-        rating: m['vote_average'].toStringAsFixed(1));
+        rating: m['vote_average'].toStringAsFixed(1),
+        genres: m['genres'] == null ? [] : m['genres']);
     movies.add(movie);
   }
 

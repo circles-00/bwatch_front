@@ -13,7 +13,9 @@ Future<dynamic> singleMovieRoute(context, snapshot, globalData, index) {
             id: snapshot.data[index].id,
             title: snapshot.data[index].title,
             overview: snapshot.data[index].overview,
-            image: snapshot.data[index].image),
+            image: snapshot.data[index].image,
+            genres: snapshot.data[index].genres,
+            rating: snapshot.data[index].rating),
       ),
     ),
   );
@@ -29,7 +31,9 @@ Future<dynamic> singleRelatedMovieRoute(context, snapshot, globalData, index) {
             id: snapshot.data[index].id,
             title: snapshot.data[index].title,
             overview: snapshot.data[index].overview,
-            image: snapshot.data[index].image),
+            image: snapshot.data[index].image,
+            genres: snapshot.data[index].genres,
+            rating: snapshot.data[index].rating),
       ),
     ),
   );

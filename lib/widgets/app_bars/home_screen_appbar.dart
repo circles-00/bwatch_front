@@ -1,7 +1,6 @@
 import 'package:bwatch_front/constants.dart';
 import 'package:bwatch_front/providers/data_provider.dart';
 import 'package:bwatch_front/screens/login_screen.dart';
-import 'package:bwatch_front/screens/search_screen.dart';
 import 'package:bwatch_front/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,32 +9,16 @@ import 'package:provider/provider.dart';
 class HomeScreenAppBar extends StatelessWidget {
   final notifyOnLogOut;
   late String _firstName;
-  late String _token;
 
   HomeScreenAppBar({Key? key, required this.notifyOnLogOut}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final globalData = Provider.of<DataProvider>(context, listen: false);
     _firstName = globalData.getFirstName();
-    _token = globalData.token;
     return AppBar(
       brightness: Brightness.dark,
       backgroundColor: Color(kPrimaryColor),
       elevation: 0,
-      leading: GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    ChangeNotifierProvider<DataProvider>.value(
-                  value: DataProvider(token: _token),
-                  child: SearchScreen(),
-                ),
-              ),
-            );
-          },
-          child: Icon(Icons.search)),
       actions: [
         Column(
           mainAxisSize: MainAxisSize.min,

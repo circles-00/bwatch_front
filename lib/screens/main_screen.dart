@@ -9,6 +9,8 @@ import 'package:provider/provider.dart';
 import '../constants.dart';
 import 'package:flutter/material.dart';
 
+import 'search_screen.dart';
+
 // ignore: must_be_immutable
 class MainScreen extends StatefulWidget {
   final firstName;
@@ -40,7 +42,13 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     // Set initial state, favoritelist and watchlist
     super.initState();
-    _children = [HomeScreen(), Profile(token: widget.token)];
+    _children = [
+      HomeScreen(),
+      SearchScreen(
+        notifyParent: notifyParent,
+      ),
+      Profile(token: widget.token)
+    ];
     getFavoriteMoviesIds(widget.token).then((value) {
       setState(() {
         widget._favIds = value;
@@ -93,6 +101,13 @@ class _MainScreenState extends State<MainScreen> {
               label: 'Home',
             ),
             BottomNavigationBarItem(
+              activeIcon: Icon(Icons.search_sharp),
+              icon: Icon(
+                Icons.search,
+              ),
+              label: 'Search',
+            ),
+            BottomNavigationBarItem(
               activeIcon: Icon(Icons.person),
               icon: Icon(
                 Icons.person,
@@ -102,12 +117,15 @@ class _MainScreenState extends State<MainScreen> {
           ],
         ),
         appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(50),
-            child: _currentIndex == 0
-                ? HomeScreenAppBar(notifyOnLogOut: notifyOnLogOut)
-                : ProfileAppBar(
-                    notifyParent: notifyParent,
-                  )),
+          preferredSize: const Size.fromHeight(50),
+          child: _currentIndex == 0
+              ? HomeScreenAppBar(notifyOnLogOut: notifyOnLogOut)
+              : _currentIndex == 2
+                  ? ProfileAppBar(
+                      notifyParent: notifyParent,
+                    )
+                  : Text(''),
+        ),
         body: _children[_currentIndex],
       ),
     );

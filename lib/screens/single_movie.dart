@@ -19,7 +19,7 @@ class SingleMovie extends StatelessWidget {
     return Scaffold(
         backgroundColor: Color(kPrimaryColor),
         appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(100),
+            preferredSize: const Size.fromHeight(60),
             child: SingleMovieAppBar(
               movieId: this.id,
               movieTitle: this.title,

@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SearchScreen extends StatefulWidget {
+  final notifyParent;
+
+  const SearchScreen({Key? key, this.notifyParent}) : super(key: key);
   @override
   _SearchScreenState createState() => _SearchScreenState();
 }
@@ -112,24 +115,34 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color(kPrimaryColor),
-        appBar: AppBar(
-          backgroundColor: Color(kPrimaryColor),
-          title: TextField(
-            decoration: InputDecoration(
-                enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(kAccentColor))),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                ),
-                hintText: 'Search movie...',
-                hintStyle: TextStyle(color: Colors.white)),
-            style: TextStyle(color: Colors.white),
-            controller: _searchInputController,
-            autofocus: true,
-            expands: false,
-            onChanged: (text) {
-              setState(() {});
-            },
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(75),
+          child: AppBar(
+            backgroundColor: Color(kPrimaryColor),
+            // leading: GestureDetector(
+            //   onTap: widget.notifyParent(),
+            //   child: Icon(Icons.arrow_back),
+            // ),
+            title: Container(
+              margin: EdgeInsets.only(top: 30),
+              child: TextField(
+                decoration: InputDecoration(
+                    enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Color(kAccentColor))),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                    hintText: 'Search movie...',
+                    hintStyle: TextStyle(color: Colors.white)),
+                style: TextStyle(color: Colors.white),
+                controller: _searchInputController,
+                autofocus: true,
+                expands: false,
+                onChanged: (text) {
+                  setState(() {});
+                },
+              ),
+            ),
           ),
         ),
         body: searchResults());

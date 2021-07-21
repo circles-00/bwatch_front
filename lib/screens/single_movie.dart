@@ -1,9 +1,12 @@
 import 'package:bwatch_front/constants.dart';
 import 'package:bwatch_front/providers/data_provider.dart';
+import 'package:bwatch_front/screens/single_actor.dart';
 import 'package:bwatch_front/widgets/recommended_movies.dart';
 import 'package:bwatch_front/widgets/app_bars/smovie_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../database.dart';
 
 class SingleMovie extends StatefulWidget {
   final int id;
@@ -67,6 +70,17 @@ class _SingleMovieState extends State<SingleMovie> {
     backgroundColor: Colors.white,
     margin: EdgeInsets.all(15),
   );
+
+  // @override
+  // void initState() {
+  //   getCast(widget.id).then((value) {
+  //     setState(() {
+  //       _cast = value;
+  //     });
+  //   });
+  //   super.initState();
+  // }
+
   @override
   Widget build(BuildContext context) {
     final globalData = Provider.of<DataProvider>(context, listen: false);
@@ -174,7 +188,7 @@ class _SingleMovieState extends State<SingleMovie> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.only(left: 40, right: 15),
+                    margin: EdgeInsets.only(left: 45, right: 15),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -191,7 +205,7 @@ class _SingleMovieState extends State<SingleMovie> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 35, right: 10),
+                    margin: EdgeInsets.only(left: 45, right: 25),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -222,7 +236,7 @@ class _SingleMovieState extends State<SingleMovie> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 25, right: 25),
+                    margin: EdgeInsets.only(left: 20, right: 25),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -244,14 +258,78 @@ class _SingleMovieState extends State<SingleMovie> {
                               : Icon(Icons.bookmark_add_outlined,
                                   color: Colors.white),
                         ),
-                        Text(
-                          'Watch Later',
-                          style: TextStyle(color: Colors.white),
+                        Container(
+                          constraints: BoxConstraints(maxWidth: 60),
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Text(
+                              'Watch Later',
+                              style: TextStyle(color: Colors.white),
+                              overflow: TextOverflow.fade,
+                              softWrap: false,
+                              maxLines: 1,
+                            ),
+                          ),
                         ),
                       ],
                     ),
                   ),
                 ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(left: 5, top: 20),
+              child: Text('Cast',
+                  style: TextStyle(fontSize: 25, color: Colors.white)),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 20),
+              height: 120,
+              child: FutureBuilder(
+                future: getCast(widget.id),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.data == null) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+
+                  return ListView.builder(
+                    itemCount: snapshot.data.length,
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index) {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SingleActor(
+                                      id: snapshot.data[index].id,
+                                      name: snapshot.data[index].name,
+                                      image: snapshot.data[index].image)));
+                        },
+                        child: Container(
+                            margin: EdgeInsets.symmetric(horizontal: 10),
+                            child: Column(
+                              children: [
+                                CircleAvatar(
+                                  backgroundImage: NetworkImage(
+                                      'https://image.tmdb.org/t/p/w500' +
+                                          snapshot.data[index].image),
+                                  radius: 40,
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  snapshot.data[index].name,
+                                  style: TextStyle(color: Colors.white),
+                                )
+                              ],
+                            )),
+                      );
+                    },
+                  );
+                },
               ),
             ),
             SizedBox(

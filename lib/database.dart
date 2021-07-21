@@ -194,3 +194,22 @@ Future<List<Actor>> getActors() async {
 
   return actors;
 }
+
+Future<List<Actor>> getCast(movieId) async {
+  var response = await http.get(Uri.parse(
+      'https://api.themoviedb.org/3/movie/$movieId/credits?api_key=3951320f561eee83f44ed08fc503df73&language=en-US')); //todo in backend
+
+  var jsonData = json.decode(response.body)['cast'];
+
+  List<Actor> actors = [];
+
+  for (var a in jsonData) {
+    if (a['profile_path'] != null) {
+      Actor actor =
+          Actor(id: a['id'], name: a['name'], image: a['profile_path']);
+      actors.add(actor);
+    }
+  }
+
+  return actors;
+}

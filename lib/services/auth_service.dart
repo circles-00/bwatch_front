@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
+import '../constants.dart';
 import '../models/login_model.dart';
 
 class APIService {
@@ -12,7 +13,7 @@ class APIService {
   int _tokenExp = -1;
 
   Future<LoginResponseModel> login(LoginRequestModel requestModel) async {
-    String url = "https://bwatch.herokuapp.com/api/v1/users/login";
+    String url = "$api_base_url/api/v1/users/login";
 
     var response = await http.post(Uri.parse(url),
         headers: <String, String>{
@@ -52,7 +53,7 @@ class APIService {
 
   Future<RegisterResponseModel> register(
       RegisterRequestModel requestModel) async {
-    String url = "https://bwatch.herokuapp.com/api/v1/users/sign-up";
+    String url = "$api_base_url/api/v1/users/sign-up";
 
     var response = await http.post(Uri.parse(url),
         headers: <String, String>{

@@ -3,13 +3,14 @@ import 'dart:convert';
 import './models/movie_model.dart';
 import 'package:http/http.dart' as http;
 
+import 'constants.dart';
 import 'models/actor_model.dart';
 
 //Singleton
 
 Future<Movie> getSingleMovie(int id, String token) async {
   var response = await http.get(
-      Uri.parse('https://bwatch.herokuapp.com/api/v1/movies/' + id.toString()),
+      Uri.parse('$api_base_url/api/v1/movies/' + id.toString()),
       headers: {"authorization": "Bearer $token"});
 
   var jsonData = json.decode(response.body)['data'];
@@ -26,8 +27,8 @@ Future<Movie> getSingleMovie(int id, String token) async {
 }
 
 Future<List<Movie>> getMovies(String collectionType) async {
-  var response = await http.get(Uri.parse(
-      'https://bwatch.herokuapp.com/api/v1/movies/' + collectionType));
+  var response = await http
+      .get(Uri.parse('$api_base_url/api/v1/movies/' + collectionType));
 
   var jsonData = json.decode(response.body)['data']['results'];
   List<Movie> movies = [];
@@ -48,12 +49,12 @@ Future<List<Movie>> getMovies(String collectionType) async {
 }
 
 Future<List<Movie>> searchMovie(query) async {
-  var response = await http.post(
-      Uri.parse('https://bwatch.herokuapp.com/api/v1/movies/search/'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{'movieName': query.toString()}));
+  var response =
+      await http.post(Uri.parse('$api_base_url/api/v1/movies/search/'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, String>{'movieName': query.toString()}));
 
   var jsonData = json.decode(response.body)['data'];
   List<Movie> movies = [];
@@ -73,9 +74,8 @@ Future<List<Movie>> searchMovie(query) async {
 }
 
 Future<List<Movie>> getRecommended(id) async {
-  var response = await http.get(Uri.parse(
-      'https://bwatch.herokuapp.com/api/v1/movies/recommended/' +
-          id.toString()));
+  var response = await http.get(
+      Uri.parse('$api_base_url/api/v1/movies/recommended/' + id.toString()));
 
   var jsonData = json.decode(response.body)['data']['results'];
   List<Movie> movies = [];
@@ -98,7 +98,7 @@ Future<List<Movie>> getRecommended(id) async {
 Future<List<int>> getFavoriteMoviesIds(String token) async {
   // print(token);
   var response = await http.get(
-      Uri.parse('https://bwatch.herokuapp.com/api/v1/users/favorites/'),
+      Uri.parse('$api_base_url/api/v1/users/favorites/'),
       headers: {"authorization": "Bearer $token"});
 
   var jsonData = json.decode(response.body)['data'];
@@ -126,22 +126,20 @@ Future<List<Movie>> getFavoriteMovies(
 
 Future<void> addFavoriteMovie(String token, int id) async {
   await http.get(
-      Uri.parse('https://bwatch.herokuapp.com/api/v1/users/favorites/add/' +
-          id.toString()),
+      Uri.parse('$api_base_url/api/v1/users/favorites/add/' + id.toString()),
       headers: {"authorization": "Bearer $token"});
 }
 
 Future<void> removeFavoriteMovie(String token, int id) async {
   await http.get(
-      Uri.parse('https://bwatch.herokuapp.com/api/v1/users/favorites/remove/' +
-          id.toString()),
+      Uri.parse('$api_base_url/api/v1/users/favorites/remove/' + id.toString()),
       headers: {"authorization": "Bearer $token"});
 }
 
 // WATCH-LIST
 Future<List<int>> getWatchListIds(String token) async {
   var response = await http.get(
-      Uri.parse('https://bwatch.herokuapp.com/api/v1/users/watch-list/'),
+      Uri.parse('$api_base_url/api/v1/users/watch-list/'),
       headers: {"authorization": "Bearer $token"});
 
   var jsonData = json.decode(response.body)['data'];
@@ -169,21 +167,20 @@ Future<List<Movie>> getWatchList(List<int> watchListIds, String token) async {
 
 Future<void> addToWatchList(String token, int id) async {
   await http.get(
-      Uri.parse('https://bwatch.herokuapp.com/api/v1/users/watch-list/add/' +
-          id.toString()),
+      Uri.parse('$api_base_url/api/v1/users/watch-list/add/' + id.toString()),
       headers: {"authorization": "Bearer $token"});
 }
 
 Future<void> removeFromWatchList(String token, int id) async {
   await http.get(
-      Uri.parse('https://bwatch.herokuapp.com/api/v1/users/watch-list/remove/' +
-          id.toString()),
+      Uri.parse(
+          '$api_base_url/api/v1/users/watch-list/remove/' + id.toString()),
       headers: {"authorization": "Bearer $token"});
 }
 
 Future<List<Actor>> getActors() async {
-  var response = await http
-      .get(Uri.parse('https://bwatch.herokuapp.com/api/v1/actors/popular'));
+  var response =
+      await http.get(Uri.parse('$api_base_url/api/v1/actors/popular'));
 
   var jsonData = json.decode(response.body)['data']['results'];
 

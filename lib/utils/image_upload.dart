@@ -2,13 +2,13 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+import '../constants.dart';
+
 // ignore: non_constant_identifier_names
 Future<String> ImageUpload(String path, String token) async {
   Map<String, String> header = {"authorization": "Bearer $token"};
   var request = http.MultipartRequest(
-      "POST",
-      Uri.parse(
-          'https://bwatch.herokuapp.com/api/v1/users/upload/profile-img'));
+      "POST", Uri.parse('$api_base_url/api/v1/users/upload/profile-img'));
   request.headers.addAll(header);
   request.files.add(await http.MultipartFile.fromPath('image', path));
   var response = await request.send();

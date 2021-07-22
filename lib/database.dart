@@ -196,10 +196,10 @@ Future<List<Actor>> getActors() async {
 }
 
 Future<List<Actor>> getCast(movieId) async {
-  var response = await http.get(Uri.parse(
-      'https://api.themoviedb.org/3/movie/$movieId/credits?api_key=3951320f561eee83f44ed08fc503df73&language=en-US')); //todo in backend
+  var response = await http.get(
+      Uri.parse('https://bwatch.herokuapp.com/api/v1/movies/cast/$movieId'));
 
-  var jsonData = json.decode(response.body)['cast'];
+  var jsonData = json.decode(response.body)['data']['cast'];
 
   List<Actor> actors = [];
 

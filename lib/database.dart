@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:bwatch_front/models/review_model.dart';
+
 import './models/movie_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -212,4 +214,28 @@ Future<List<Actor>> getCast(movieId) async {
   }
 
   return actors;
+}
+
+// Reviews
+
+Future<List<Review>> getReviews(int id) async {
+  var response =
+      await http.get(Uri.parse('$api_base_url/api/v1/movies/reviews/$id'));
+
+  var jsonData = json.decode(response.body)['data'];
+  List<Review> reviews = [];
+
+  for (var r in jsonData) {
+    Review review = Review(
+      author: r['author_details']['username'],
+      content: r['content'],
+      image: r['author_details']['avatar_path'],
+      rating: r['author_details']['rating'] == null
+          ? "1"
+          : r['author_details']['rating'].toString(),
+    );
+
+    reviews.add(review);
+  }
+  return reviews;
 }

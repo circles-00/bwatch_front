@@ -337,6 +337,100 @@ class _SingleMovieState extends State<SingleMovie> {
             ),
             Container(
               margin: EdgeInsets.only(left: 5),
+              child: Text('Reviews',
+                  style: TextStyle(fontSize: 25, color: Colors.white)),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 20),
+              height: 450,
+              child: FutureBuilder(
+                future: getReviews(widget.id),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  // print(snapshot.data);
+
+                  if (snapshot.data == null) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  return ListView.builder(
+                    itemCount: snapshot.data.length,
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                          margin: EdgeInsets.symmetric(horizontal: 20),
+                          child: Column(
+                            children: [
+                              Icon(Icons.star, color: Colors.yellow),
+                              Text(snapshot.data[index].rating,
+                                  style: TextStyle(color: Colors.white)),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Container(
+                                width: 150,
+                                child: Center(
+                                  child: Text(
+                                    'Author: ' + snapshot.data[index].author,
+                                    style: TextStyle(color: Colors.white),
+                                    overflow: TextOverflow.fade,
+                                    softWrap: false,
+                                    maxLines: 1,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              CircleAvatar(
+                                backgroundImage: NetworkImage(snapshot
+                                        .data[index].image
+                                        .toString()
+                                        .contains('gravatar')
+                                    ? 'https://secure.gravatar.com/avatar/' +
+                                        snapshot.data[index].image
+                                            .toString()
+                                            .split('/https://secure.gravatar.com/avatar/')[
+                                                1]
+                                            .toString()
+                                    : snapshot.data[index].image
+                                            .toString()
+                                            .contains('https')
+                                        ? snapshot.data[index].image.toString()
+                                        : 'https://image.tmdb.org/t/p/w500' +
+                                            snapshot.data[index].image
+                                                .toString()),
+                                radius: 40,
+                              ),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              Container(
+                                constraints: BoxConstraints(
+                                    maxWidth: 150, maxHeight: 250),
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.vertical,
+                                  child: Text(
+                                    snapshot.data[index].content,
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      wordSpacing: 3,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ));
+                    },
+                  );
+                },
+              ),
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            Container(
+              margin: EdgeInsets.only(left: 5),
               child: Text('Related Movies',
                   style: TextStyle(fontSize: 25, color: Colors.white)),
             ),

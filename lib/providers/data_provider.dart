@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 class DataProvider with ChangeNotifier {
   @override
   void dispose() {
-    print('DATA PROVIDER DISPOSE');
+    // print('DATA PROVIDER DISPOSE');
     super.dispose();
   }
 

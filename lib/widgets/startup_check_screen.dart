@@ -14,7 +14,8 @@ class StartupWidget extends StatelessWidget {
         return MainScreen(
             firstName: userData['firstName'],
             lastName: userData['lastName'],
-            token: userData['token']);
+            token: userData['token'],
+            id: userData['id']);
       } else {
         return LoginScreen();
       }

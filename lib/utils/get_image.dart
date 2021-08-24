@@ -6,11 +6,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../constants.dart';
 
 // ignore: non_constant_identifier_names
-Future<String> getProfileImage(String token) async {
+Future<String> getProfileImage(String id) async {
   // print(token);
   var response = await http.get(
       Uri.parse('$api_base_url/api/v1/users/profile-img/'),
-      headers: {"authorization": "Bearer $token"});
+      headers: {"id": id});
 
   var jsonData = json.decode(response.body);
 

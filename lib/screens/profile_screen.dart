@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Profile extends StatefulWidget {
-  final String token;
+  final String id;
 
-  const Profile({Key? key, required this.token}) : super(key: key);
+  const Profile({Key? key, required this.id}) : super(key: key);
   @override
   _ProfileState createState() => _ProfileState();
 }
@@ -26,13 +26,7 @@ class _ProfileState extends State<Profile> {
   }
 
   Future<void> _getProfileImg() async {
-    // final prefs = await SharedPreferences.getInstance();
-    // if (prefs.containsKey('profileImgUrl')) {
-    //   setState(() {
-    //     _imgUrl = prefs.getString('profileImgUrl');
-    //   });
-    // }
-    await getProfileImage(widget.token).then((value) {
+    await getProfileImage(widget.id).then((value) {
       setState(() {
         _imgUrl = value;
       });
@@ -150,8 +144,7 @@ class _ProfileState extends State<Profile> {
                 margin: EdgeInsets.only(left: 20),
                 child: SizedBox(
                     height: 200,
-                    child: FavoritesWatchListHorizontal(
-                        widget.token, 'favorites')),
+                    child: FavoritesWatchListHorizontal('favorites')),
               ),
               SizedBox(
                 height: 35,
@@ -170,8 +163,7 @@ class _ProfileState extends State<Profile> {
                 margin: EdgeInsets.only(left: 20),
                 child: SizedBox(
                     height: 200,
-                    child: FavoritesWatchListHorizontal(
-                        widget.token, 'watch-list')),
+                    child: FavoritesWatchListHorizontal('watch-list')),
               ),
               SizedBox(
                 height: 15,

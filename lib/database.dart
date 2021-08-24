@@ -10,10 +10,9 @@ import 'models/actor_model.dart';
 
 //Singleton
 
-Future<Movie> getSingleMovie(int id, String token) async {
-  var response = await http.get(
-      Uri.parse('$api_base_url/api/v1/movies/' + id.toString()),
-      headers: {"authorization": "Bearer $token"});
+Future<Movie> getSingleMovie(int id) async {
+  var response =
+      await http.get(Uri.parse('$api_base_url/api/v1/movies/' + id.toString()));
 
   var jsonData = json.decode(response.body)['data'];
   Movie movie = Movie(
@@ -97,11 +96,11 @@ Future<List<Movie>> getRecommended(id) async {
 }
 
 // Get favorite movies of user
-Future<List<int>> getFavoriteMoviesIds(String token) async {
+Future<List<int>> getFavoriteMoviesIds(String id) async {
   // print(token);
   var response = await http.get(
       Uri.parse('$api_base_url/api/v1/users/favorites/'),
-      headers: {"authorization": "Bearer $token"});
+      headers: {"id": id});
 
   var jsonData = json.decode(response.body)['data'];
   List<int> movies = [];
@@ -113,13 +112,12 @@ Future<List<int>> getFavoriteMoviesIds(String token) async {
   return movies;
 }
 
-Future<List<Movie>> getFavoriteMovies(
-    List<int> favoriteIds, String token) async {
+Future<List<Movie>> getFavoriteMovies(List<int> favoriteIds) async {
   var ids = favoriteIds;
   List<Movie> movies = [];
 
   for (var id in ids) {
-    Movie movie = await getSingleMovie(id, token);
+    Movie movie = await getSingleMovie(id);
     movies.add(movie);
   }
 
@@ -139,10 +137,10 @@ Future<void> removeFavoriteMovie(String token, int id) async {
 }
 
 // WATCH-LIST
-Future<List<int>> getWatchListIds(String token) async {
+Future<List<int>> getWatchListIds(String id) async {
   var response = await http.get(
       Uri.parse('$api_base_url/api/v1/users/watch-list/'),
-      headers: {"authorization": "Bearer $token"});
+      headers: {"id": id});
 
   var jsonData = json.decode(response.body)['data'];
   List<int> movies = [];
@@ -154,13 +152,13 @@ Future<List<int>> getWatchListIds(String token) async {
   return movies;
 }
 
-Future<List<Movie>> getWatchList(List<int> watchListIds, String token) async {
+Future<List<Movie>> getWatchList(List<int> watchListIds) async {
   var ids = watchListIds;
 
   List<Movie> movies = [];
 
   for (var id in ids) {
-    Movie movie = await getSingleMovie(id, token);
+    Movie movie = await getSingleMovie(id);
     movies.add(movie);
   }
 

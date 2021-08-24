@@ -11,6 +11,7 @@ class APIService {
   String _firstName = 'init';
   String _lastName = 'init';
   int _tokenExp = -1;
+  String _id = 'init';
 
   Future<LoginResponseModel> login(LoginRequestModel requestModel) async {
     String url = "$api_base_url/api/v1/users/login";
@@ -30,12 +31,15 @@ class APIService {
       _firstName = jsonData['firstName'];
       _lastName = jsonData['lastName'];
       _tokenExp = tokenData['exp'];
+      _id = tokenData['id'];
+      print(_id);
       final prefs = await SharedPreferences.getInstance();
       final userData = json.encode({
         'token': _token,
         'tokenExp': _tokenExp,
         'firstName': _firstName,
-        'lastName': _lastName
+        'lastName': _lastName,
+        'id': _id
       });
       await prefs.setString('userData', userData);
       return LoginResponseModel.fromJson(
@@ -46,7 +50,8 @@ class APIService {
         'token': 'fail',
         'status': 'failed',
         'firstName': 'fail',
-        'lastName': 'fail'
+        'lastName': 'fail',
+        'id': 'fail'
       });
     }
   }
@@ -73,6 +78,7 @@ class APIService {
     _tokenExp = -1;
     _firstName = 'init';
     _lastName = 'init';
+    _id = 'init';
   }
 
   static Future<Map<String, dynamic>?> getJWT() async {

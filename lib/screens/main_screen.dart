@@ -17,11 +17,18 @@ class MainScreen extends StatefulWidget {
   final lastName;
   final email;
   final token;
+  final id;
 
   List<int> _favIds = [];
   List<int> _watchListIds = [];
 
-  MainScreen({Key? key, this.firstName, this.lastName, this.email, this.token})
+  MainScreen(
+      {Key? key,
+      this.firstName,
+      this.lastName,
+      this.email,
+      this.token,
+      this.id})
       : super(key: key);
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -47,14 +54,14 @@ class _MainScreenState extends State<MainScreen> {
       SearchScreen(
         notifyParent: notifyParent,
       ),
-      Profile(token: widget.token)
+      Profile(id: widget.id)
     ];
-    getFavoriteMoviesIds(widget.token).then((value) {
+    getFavoriteMoviesIds(widget.id).then((value) {
       setState(() {
         widget._favIds = value;
       });
     });
-    getWatchListIds(widget.token).then((value) {
+    getWatchListIds(widget.id).then((value) {
       setState(() {
         widget._watchListIds = value;
       });

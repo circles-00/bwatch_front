@@ -242,6 +242,9 @@ Future<List<Review>> getReviews(int id) async {
 Future<List<User>> searchUser(query) async {
   var response = await http.post(
       Uri.parse('https://bwatch.herokuapp.com/api/v1/users/search'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
       body: jsonEncode(<String, String>{'user': query.toString()}));
 
   var jsonData = json.decode(response.body)['data'];

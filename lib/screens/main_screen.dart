@@ -15,20 +15,13 @@ import 'search_screen.dart';
 class MainScreen extends StatefulWidget {
   final firstName;
   final lastName;
-  final email;
   final token;
   final id;
 
   List<int> _favIds = [];
   List<int> _watchListIds = [];
 
-  MainScreen(
-      {Key? key,
-      this.firstName,
-      this.lastName,
-      this.email,
-      this.token,
-      this.id})
+  MainScreen({Key? key, this.firstName, this.lastName, this.token, this.id})
       : super(key: key);
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -49,13 +42,6 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     // Set initial state, favoritelist and watchlist
     super.initState();
-    _children = [
-      HomeScreen(),
-      SearchScreen(
-        notifyParent: notifyParent,
-      ),
-      Profile(id: widget.id)
-    ];
     getFavoriteMoviesIds(widget.id).then((value) {
       setState(() {
         widget._favIds = value;
@@ -82,12 +68,24 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    _children = [
+      HomeScreen(),
+      SearchScreen(),
+      Profile(
+        id: widget.id,
+        firstName: widget.firstName,
+        lastName: widget.lastName,
+        favoriteIDs: widget._favIds,
+        watchListIDs: widget._watchListIds,
+      )
+    ];
     final globalData = Provider.of<DataProvider>(context);
     globalData.setFirstName(widget.firstName);
     globalData.setLastName(widget.lastName);
     globalData.setFavoriteIDs(widget._favIds);
     globalData.setWatchListIDs(widget._watchListIds);
     globalData.setToken(widget.token);
+    globalData.setId(widget.id);
 
     return WillPopScope(
       onWillPop: () async => false,

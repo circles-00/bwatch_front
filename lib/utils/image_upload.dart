@@ -14,15 +14,9 @@ Future<String> ImageUpload(String path, String token) async {
   var response = await request.send();
   var status = 'init';
   if (response.statusCode == 200) {
-    // print('Image successfully uplaoded');
     status = await response.stream.bytesToString();
     var jsonData = json.decode(status);
     var imgUrl = jsonData['url'];
-    // final prefs = await SharedPreferences.getInstance();
-    // prefs.setString(
-    //   'profileImgUrl',
-    //   imgUrl,
-    // );
 
     return imgUrl.toString();
   }

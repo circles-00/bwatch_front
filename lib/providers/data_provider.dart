@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 class DataProvider with ChangeNotifier {
   @override
   void dispose() {
-    // print('DATA PROVIDER DISPOSE');
     super.dispose();
   }
 
@@ -15,8 +14,6 @@ class DataProvider with ChangeNotifier {
   DataProvider._internal();
 
   factory DataProvider({String token = 'init'}) {
-    // print('DATA PROVIDER');
-    // print(token);
     _instance.token = token;
     return _instance;
   }
@@ -26,6 +23,7 @@ class DataProvider with ChangeNotifier {
   List<int> _watchListIDs = [];
   late String _firstName;
   late String _lastName;
+  late String _id;
 
   // MoviesProvider(this.token);
 
@@ -71,6 +69,10 @@ class DataProvider with ChangeNotifier {
     return _lastName;
   }
 
+  String getId() {
+    return _id;
+  }
+
   // Setters
   setFavoriteIDs(favIds) {
     _favoriteIDs = favIds;
@@ -78,6 +80,10 @@ class DataProvider with ChangeNotifier {
 
   setWatchListIDs(watchIds) {
     _watchListIDs = watchIds;
+  }
+
+  setId(id) {
+    _id = id;
   }
 
   // ignore: unnecessary_getters_setters

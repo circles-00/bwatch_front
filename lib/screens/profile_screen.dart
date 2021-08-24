@@ -8,8 +8,20 @@ import 'package:provider/provider.dart';
 
 class Profile extends StatefulWidget {
   final String id;
+  final String firstName;
+  final String lastName;
+  final List<int> favoriteIDs;
+  final List<int> watchListIDs;
 
-  const Profile({Key? key, required this.id}) : super(key: key);
+  const Profile(
+      {Key? key,
+      required this.id,
+      required this.firstName,
+      required this.lastName,
+      required this.favoriteIDs,
+      required this.watchListIDs})
+      : super(key: key);
+
   @override
   _ProfileState createState() => _ProfileState();
 }
@@ -17,6 +29,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   String? _imgUrl;
   bool _isEdit = false;
+  bool _isSelf = true;
 
   void notifyParent() {
     setState(() {
@@ -42,6 +55,11 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     final globalData = Provider.of<DataProvider>(context);
+    if (globalData.getId() != widget.id) {
+      setState(() {
+        _isSelf = false;
+      });
+    }
     return Scaffold(
       backgroundColor: Color(kPrimaryColor),
       body: ListView(
@@ -69,7 +87,7 @@ class _ProfileState extends State<Profile> {
                         ),
                       ),
                     ),
-                    _isEdit
+                    _isEdit && _isSelf
                         ? Center(
                             child: GestureDetector(
                               onTap: () {
@@ -100,14 +118,14 @@ class _ProfileState extends State<Profile> {
               ),
               Center(
                 child: Text(
-                  globalData.getFirstName() + ' ' + globalData.getLastName(),
+                  widget.firstName + ' ' + widget.lastName,
                   style: TextStyle(fontSize: 25, color: Colors.white),
                 ),
               ),
               SizedBox(
                 height: 15,
               ),
-              !_isEdit
+              !_isEdit && _isSelf
                   ? Center(
                       child: Container(
                         decoration: BoxDecoration(
@@ -144,7 +162,11 @@ class _ProfileState extends State<Profile> {
                 margin: EdgeInsets.only(left: 20),
                 child: SizedBox(
                     height: 200,
-                    child: FavoritesWatchListHorizontal('favorites')),
+                    child: FavoritesWatchListHorizontal(
+                      listType: 'favorites',
+                      favoriteIDs: widget.favoriteIDs,
+                      watchListIDs: [],
+                    )),
               ),
               SizedBox(
                 height: 35,
@@ -163,7 +185,11 @@ class _ProfileState extends State<Profile> {
                 margin: EdgeInsets.only(left: 20),
                 child: SizedBox(
                     height: 200,
-                    child: FavoritesWatchListHorizontal('watch-list')),
+                    child: FavoritesWatchListHorizontal(
+                      listType: 'watch-list',
+                      watchListIDs: widget.watchListIDs,
+                      favoriteIDs: [],
+                    )),
               ),
               SizedBox(
                 height: 15,

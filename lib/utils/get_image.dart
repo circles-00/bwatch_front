@@ -7,7 +7,6 @@ import '../constants.dart';
 
 // ignore: non_constant_identifier_names
 Future<String> getProfileImage(String id) async {
-  // print(token);
   var response = await http.get(
       Uri.parse('$api_base_url/api/v1/users/profile-img/'),
       headers: {"id": id});
@@ -15,7 +14,6 @@ Future<String> getProfileImage(String id) async {
   var jsonData = json.decode(response.body);
 
   if (response.statusCode == 200) {
-    // print('Image successfully uplaoded');
     var imgUrl = jsonData['url'];
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(

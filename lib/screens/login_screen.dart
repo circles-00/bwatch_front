@@ -165,6 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     firstName: value.firstName,
                                     lastName: value.lastName,
                                     token: value.token,
+                                    id: value.id,
                                   ),
                                 ),
                               );

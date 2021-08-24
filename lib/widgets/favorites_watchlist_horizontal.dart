@@ -7,14 +7,21 @@ import 'package:provider/provider.dart';
 
 class FavoritesWatchListHorizontal extends StatelessWidget {
   final listType;
-  FavoritesWatchListHorizontal(this.listType);
+  final List<int> favoriteIDs;
+  final List<int> watchListIDs;
+
+  const FavoritesWatchListHorizontal(
+      {Key? key,
+      required this.listType,
+      required this.favoriteIDs,
+      required this.watchListIDs})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final globalData = Provider.of<DataProvider>(context);
     return FutureBuilder(
         future: this.listType == 'favorites'
-            ? getFavoriteMovies(globalData.favorites)
-            : getWatchList(globalData.watchList),
+            ? getFavoriteMovies(this.favoriteIDs)
+            : getWatchList(this.watchListIDs),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.data == null) {
             return Center(child: CircularProgressIndicator());

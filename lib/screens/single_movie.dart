@@ -346,8 +346,6 @@ class _SingleMovieState extends State<SingleMovie> {
               child: FutureBuilder(
                 future: getReviews(widget.id),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  // print(snapshot.data);
-
                   if (snapshot.data == null) {
                     return Center(child: CircularProgressIndicator());
                   }

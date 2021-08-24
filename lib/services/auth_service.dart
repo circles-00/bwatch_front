@@ -32,7 +32,6 @@ class APIService {
       _lastName = jsonData['lastName'];
       _tokenExp = tokenData['exp'];
       _id = tokenData['id'];
-      print(_id);
       final prefs = await SharedPreferences.getInstance();
       final userData = json.encode({
         'token': _token,
@@ -42,9 +41,13 @@ class APIService {
         'id': _id
       });
       await prefs.setString('userData', userData);
-      return LoginResponseModel.fromJson(
-        jsonData,
-      );
+      return LoginResponseModel.fromJson({
+        'status': jsonData['status'],
+        'token': _token,
+        'firstName': _firstName,
+        'lastName': _lastName,
+        'id': _id
+      });
     } else {
       return LoginResponseModel.fromJson({
         'token': 'fail',

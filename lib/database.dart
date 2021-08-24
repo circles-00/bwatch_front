@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bwatch_front/models/review_model.dart';
+import 'package:bwatch_front/models/user_model.dart';
 
 import './models/movie_model.dart';
 import 'package:http/http.dart' as http;
@@ -97,7 +98,6 @@ Future<List<Movie>> getRecommended(id) async {
 
 // Get favorite movies of user
 Future<List<int>> getFavoriteMoviesIds(String id) async {
-  // print(token);
   var response = await http.get(
       Uri.parse('$api_base_url/api/v1/users/favorites/'),
       headers: {"id": id});
@@ -236,4 +236,28 @@ Future<List<Review>> getReviews(int id) async {
     reviews.add(review);
   }
   return reviews;
+}
+
+// Users
+Future<List<User>> searchUser(query) async {
+  var response = await http.post(
+      Uri.parse('https://bwatch.herokuapp.com/api/v1/users/search'),
+      body: jsonEncode(<String, String>{'user': query.toString()}));
+
+  var jsonData = json.decode(response.body)['data'];
+
+  List<User> users = [];
+
+  for (var u in jsonData) {
+    User user = User(
+        id: u['_id'],
+        firstName: u['firstName'],
+        lastName: u['lastName'],
+        avatar: u['avatar'] == null ? 'init' : u['avatar'],
+        favoriteIDs: u['favMovies'].cast<int>(),
+        watchListIDs: u['watchList'].cast<int>());
+    users.add(user);
+  }
+
+  return users;
 }

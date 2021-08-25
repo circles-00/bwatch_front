@@ -71,16 +71,6 @@ class _SingleMovieState extends State<SingleMovie> {
     margin: EdgeInsets.all(15),
   );
 
-  // @override
-  // void initState() {
-  //   getCast(widget.id).then((value) {
-  //     setState(() {
-  //       _cast = value;
-  //     });
-  //   });
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     final globalData = Provider.of<DataProvider>(context, listen: false);

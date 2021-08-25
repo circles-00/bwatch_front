@@ -9,8 +9,6 @@ import 'package:http/http.dart' as http;
 import 'constants.dart';
 import 'models/actor_model.dart';
 
-//Singleton
-
 Future<Movie> getSingleMovie(int id) async {
   var response =
       await http.get(Uri.parse('$api_base_url/api/v1/movies/' + id.toString()));
@@ -178,6 +176,7 @@ Future<void> removeFromWatchList(String token, int id) async {
       headers: {"authorization": "Bearer $token"});
 }
 
+// ACTORS
 Future<List<Actor>> getActors() async {
   var response =
       await http.get(Uri.parse('$api_base_url/api/v1/actors/popular'));
@@ -215,7 +214,6 @@ Future<List<Actor>> getCast(movieId) async {
 }
 
 // Reviews
-
 Future<List<Review>> getReviews(int id) async {
   var response =
       await http.get(Uri.parse('$api_base_url/api/v1/movies/reviews/$id'));

@@ -246,13 +246,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                           if (value.status == 'success') {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => LoginScreen()));
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => LoginScreen(),
+                              ),
+                            );
                           } else {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
                                 content: Text(
-                                    "User with such email already exists, please enter a different email address")));
+                                    "User with such email already exists, please enter a different email address"),
+                              ),
+                            );
                           }
                         });
                       }

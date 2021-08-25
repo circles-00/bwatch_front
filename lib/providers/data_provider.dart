@@ -25,29 +25,23 @@ class DataProvider with ChangeNotifier {
   late String _lastName;
   late String _id;
 
-  // MoviesProvider(this.token);
-
   Future<void> addFavorite(int id) async {
     await addFavoriteMovie(token, id);
-    // _favoriteIDs.add(id);
     notifyListeners();
   }
 
   Future<void> removeFavorite(int id) async {
     await removeFavoriteMovie(token, id);
-    // _favoriteIDs.remove(id);
     notifyListeners();
   }
 
   Future<void> addMovieToWatchList(int id) async {
     await addToWatchList(token, id);
-    // _watchListIDs.add(id);
     notifyListeners();
   }
 
   Future<void> removeMovieFromWatchList(int id) async {
     await removeFromWatchList(token, id);
-    // _watchListIDs.remove(id);
     notifyListeners();
   }
 

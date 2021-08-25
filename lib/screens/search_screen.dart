@@ -197,15 +197,18 @@ class _SearchScreenState extends State<SearchScreen> {
               margin: EdgeInsets.only(top: 30),
               child: TextField(
                 decoration: InputDecoration(
-                    enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Color(kAccentColor))),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(kAccentColor),
                     ),
-                    hintText: _currentIndex == 0
-                        ? 'Search movie...'
-                        : 'Search user...',
-                    hintStyle: TextStyle(color: Colors.white)),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                  hintText:
+                      _currentIndex == 0 ? 'Search movie...' : 'Search user...',
+                  hintStyle: TextStyle(color: Colors.white),
+                ),
                 style: TextStyle(color: Colors.white),
                 controller: _searchInputController,
                 autofocus: true,

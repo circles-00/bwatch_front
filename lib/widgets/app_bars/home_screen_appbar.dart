@@ -29,7 +29,6 @@ class HomeScreenAppBar extends StatelessWidget {
               'Hello, ' + _firstName,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            // Text('Macedonia', style: TextStyle(fontSize: 10)),
           ],
         ),
         Padding(

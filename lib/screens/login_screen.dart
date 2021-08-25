@@ -171,9 +171,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               );
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      content:
-                                          Text("Incorrect email or password")));
+                                SnackBar(
+                                  content: Text("Incorrect email or password"),
+                                ),
+                              );
                             }
                           });
                         }
@@ -201,9 +202,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       onPressed: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => RegisterScreen()));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RegisterScreen(),
+                          ),
+                        );
                       },
                       child: Center(
                         child: Text(

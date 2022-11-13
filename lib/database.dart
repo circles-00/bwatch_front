@@ -195,8 +195,8 @@ Future<List<Actor>> getActors() async {
 }
 
 Future<List<Actor>> getCast(movieId) async {
-  var response = await http.get(
-      Uri.parse('https://bwatch.herokuapp.com/api/v1/movies/cast/$movieId'));
+  var response =
+      await http.get(Uri.parse('$api_base_url/api/v1/movies/cast/$movieId'));
 
   var jsonData = json.decode(response.body)['data']['cast'];
 
@@ -238,8 +238,7 @@ Future<List<Review>> getReviews(int id) async {
 
 // Users
 Future<List<User>> searchUser(query) async {
-  var response = await http.post(
-      Uri.parse('https://bwatch.herokuapp.com/api/v1/users/search'),
+  var response = await http.post(Uri.parse('$api_base_url/api/v1/users/search'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

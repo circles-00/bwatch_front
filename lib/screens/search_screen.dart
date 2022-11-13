@@ -128,9 +128,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                   image: snapshot.data[index].avatar !=
                                               'init' ||
                                           snapshot.data[index].avatar == null
-                                      ? NetworkImage(
-                                          'https://bwatch.herokuapp.com/' +
-                                              snapshot.data[index].avatar)
+                                      ? NetworkImage('$api_base_url' +
+                                          snapshot.data[index].avatar)
                                       : AssetImage(
                                               'assets/images/empty_avatar.png')
                                           as ImageProvider,
